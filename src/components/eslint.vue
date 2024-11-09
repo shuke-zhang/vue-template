@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import Comtest from './comtest.vue';
-const s = ref(0);
+import { ref } from 'vue';
+import type { TestModel } from './types';
+const s = ref<TestModel>();
 console.log(s);
 
-function handleTest() {}
+function handleTest() {
+  const title = '测试  ';
+  console.log(title);
+}
 </script>
 
 <template>

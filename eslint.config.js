@@ -4,7 +4,9 @@ import pluginVitest from '@vitest/eslint-plugin';
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
 export default [
   // 插件配置
-  ...pluginVue.configs['flat/essential'], // 导入 eslint-plugin-vue 插件的基础配置
+  ...pluginVue.configs[
+    ('flat/essential', 'flat/strongly-recommended', 'flat/recommended')
+  ], // 导入 eslint-plugin-vue 插件的基础配置
   ...vueTsEslintConfig(), // 用于支持 TypeScript 和 Vue 的 ESLint 配置
   {
     // 设置 ECMAScript 版本和模块类型
@@ -37,24 +39,7 @@ export default [
       'no-unused-vars': 'off', // 是用于检测代码中定义了但未使用的变量的规则。如果启用该规则，当有未使用的变量时，ESLint 会报错或警告。
       'no-undef': 'off', // 用于检测代码中使用了未定义的变量。当在代码中使用了未定义的变量时，ESLint 会抛出错误。
       'vue/multi-word-component-names': 'off', // 允许单词命名组件 - 如果开启当使用了一个单词命名组件时会在script标签上报错Component name "eslint" should always be multi-word.
-      'vue/attributes-order': [
-        'error',
-        {
-          order: [
-            'DEFINITION',
-            'LIST_RENDERING',
-            'CONDITIONALS',
-            'RENDER_MODIFIERS',
-            'GLOBAL',
-            'UNIQUE',
-            'TWO_WAY_BINDING',
-            'OTHER_DIRECTIVES',
-            'OTHER_ATTR',
-            'EVENTS',
-            'CONTENT',
-          ],
-        },
-      ],
+      'vue/attributes-order': 'error',
     },
   },
 ];

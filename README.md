@@ -35,3 +35,39 @@ npm 10.9.0
 > 2. 具体详细配置可参照官方的配置文档 - https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file
 
 ##### 配置文件配置 详见 eslint.config.js
+
+###### vue官方 eslint 插件 地址===>https://eslint.vuejs.org/rules/
+
+```js
+...pluginVue.configs[
+
+    ('flat/essential', 'flat/strongly-recommended', 'flat/recommended')
+
+]
+```
+
+一、标签内属性 vue/attributes-order 配置 官方文档 ===> https://eslint.vuejs.org/rules/attributes-order.html
+
+1.  配置文件中添加 ` ...pluginVue.configs[('flat/recommended',xxx)],`
+2.  官方预设配置中是 waring ，更改为 error 报错 ， rules 中添加 'vue/attributes-order': 'error' 。同时可用下面方式添加自定义属性顺序
+
+    ```node
+    'vue/attributes-order': [
+      'error',
+      {
+        order: [
+          'DEFINITION',
+          'LIST_RENDERING',
+          'CONDITIONALS',
+          'RENDER_MODIFIERS',
+          'GLOBAL',
+          'UNIQUE',
+          'TWO_WAY_BINDING',
+          'OTHER_DIRECTIVES',
+          'OTHER_ATTR',
+          'EVENTS',
+          'CONTENT'
+        ]
+      }
+    ]
+    ```
