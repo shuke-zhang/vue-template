@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-
 const sss = computed(() => 1 + 1);
 const props = defineProps({});
 console.log(props);

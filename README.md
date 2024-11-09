@@ -30,3 +30,8 @@ npm 10.9.0
 完成上述操作即可实现vue项目的初始化
 
 # eslint / prettierrc 配置 实现代码检查和格式化
+
+> 1. eslint 9.0版本之后配置方式完全变化 官方文档 - https://eslint.org/docs/latest/use/getting-started
+> 2. 具体详细配置可参照官方的配置文档 - https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file
+
+##### 配置文件配置 详见 eslint.config.js
