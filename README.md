@@ -48,7 +48,7 @@ npm 10.9.0
 
 一、标签内属性 vue/attributes-order 配置 官方文档 ===> https://eslint.vuejs.org/rules/attributes-order.html
 
-1.  配置文件中添加 ` ...pluginVue.configs[('flat/recommended',xxx)],`
+1.  配置文件中添加 ` ...pluginVue.configs['flat/recommended'],`
 2.  官方预设配置中是 waring ，更改为 error 报错 ， rules 中添加 'vue/attributes-order': 'error' 。同时可用下面方式添加自定义属性顺序
 
     ```node

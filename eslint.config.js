@@ -3,17 +3,25 @@ import vueTsEslintConfig from '@vue/eslint-config-typescript';
 import pluginVitest from '@vitest/eslint-plugin';
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
 export default [
-  // 插件配置
-  ...pluginVue.configs[
-    ('flat/essential', 'flat/strongly-recommended', 'flat/recommended')
-  ], // 导入 eslint-plugin-vue 插件的基础配置
-  ...vueTsEslintConfig(), // 用于支持 TypeScript 和 Vue 的 ESLint 配置
   {
     // 设置 ECMAScript 版本和模块类型
     languageOptions: {
       ecmaVersion: 2024, // 使用 ECMAScript 2024 标准
       sourceType: 'module', // 指定代码使用 ES 模块化（import 和 export）语法
     },
+  },
+
+  // 插件配置
+  // ...pluginVue.configs[
+  //   ('flat/essential', 'flat/strongly-recommended', 'flat/recommended')
+  // ], // 导入 eslint-plugin-vue 插件的基础配置
+  ...pluginVue.configs['flat/essential'],
+  ...pluginVue.configs['flat/strongly-recommended'],
+  ...pluginVue.configs['flat/recommended'],
+  ...vueTsEslintConfig(), // 用于支持 TypeScript 和 Vue 的 ESLint 配置
+  {
+    ...pluginVitest.configs.recommended, // Vitest 测试文件的推荐 ESLint 配置
+    files: ['src/**/__tests__/*'], // 应用于 src 目录下的 __tests__ 文件夹中的测试文件
   },
 
   {
@@ -24,11 +32,6 @@ export default [
   {
     name: 'app/files-to-ignore',
     ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'], // 列出了需要忽略的文件夹和路径
-  },
-
-  {
-    ...pluginVitest.configs.recommended, // Vitest 测试文件的推荐 ESLint 配置
-    files: ['src/**/__tests__/*'], // 应用于 src 目录下的 __tests__ 文件夹中的测试文件
   },
 
   // 禁用 ESLint 和 Prettier 的冲突规则，确保 Prettier 负责格式化

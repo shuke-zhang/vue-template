@@ -3,7 +3,6 @@ import Comtest from './comtest.vue';
 import { ref } from 'vue';
 import type { TestModel } from './types';
 const s = ref<TestModel>();
-console.log(s);
 
 function handleTest() {
   const title = '测试  ';
