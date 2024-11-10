@@ -8,6 +8,11 @@ export default [
     languageOptions: {
       ecmaVersion: 2024, // 使用 ECMAScript 2024 标准
       sourceType: 'module', // 指定代码使用 ES 模块化（import 和 export）语法
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
     },
   },
 
