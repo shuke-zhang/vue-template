@@ -30,6 +30,8 @@
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.1",
     "eslint": "^9.13.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-vue": "^9.29.0",
     "jsdom": "^25.0.1",
     "npm-run-all2": "^7.0.1",

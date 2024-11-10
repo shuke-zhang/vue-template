@@ -72,4 +72,43 @@ npm 10.9.0
     ]
     ```
 
-3.  目前仅仅发现只支持 vue 文件，对于 tsx 文件中的属性排序目前暂未找到姐姐方法
+3.  目前仅仅发现只支持 vue 文件，对于 tsx 文件中的属性排序目前暂未找到解决方法
+
+二、import 导入排序 官方文档 ===> https://github.com/import-js/eslint-plugin-import
+
+1. 插件安装 `pnpm add eslint-plugin-import --save-dev`
+2. 引入 `import importPlugin from 'eslint-plugin-import';`
+3. 配置插件 `importPlugin.flatConfigs.recommended`
+   > 此时在引入时会报错
+
+```vue
+import { ref } from 'vue'; // ref not found in 'vue'eslintimport/named import {
+data } from './data'; // Unable to resolve path to module
+./data.eslintimport/no-unresolved
+```
+
+4. 安装插件配置解决报错 `pnpm add eslint-import-resolver-alias --save-dev` , 并在 eslint 配置文件中添加即可解决报错
+
+```js
+  {
+    settings: {
+      'import/resolver': {
+        alias: {
+          map: [
+            // 这里参照别名配置映射
+              ['@', './src'],
+          ],
+          // 告诉resolver-alias有哪些后缀的文件要解析
+          extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+        },
+      },
+    },
+  },
+```
+
+5. 根据官网提示，rules中添加以下代码，以便于更好约束导入
+
+```js
+ 'import/no-dynamic-require': 'warn', // require其中的参数不能是变量或表达式，必须是一个静态字符串 require('./someModule')
+ 'import/no-nodejs-modules': 'off', // 取消Node.js 导入模块的检查  默认不检查 这儿添加只是为了注释
+```

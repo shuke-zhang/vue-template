@@ -10,5 +10,12 @@
   },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": ["Parens", "Pinia", "tsbuildinfo", "Vite"]
+  "cSpell.words": [
+    "eslintimport",
+    "Parens",
+    "Pinia",
+    "tsbuildinfo",
+    "Vite",
+    "vue'eslintimport"
+  ]
 }
