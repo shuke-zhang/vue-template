@@ -46,7 +46,7 @@ npm 10.9.0
 ]
 ```
 
-一、标签内属性 vue/attributes-order 配置 官方文档 ===> https://eslint.vuejs.org/rules/attributes-order.html
+一、标签内属性排序规则 vue/attributes-order 配置 官方文档 ===> https://eslint.vuejs.org/rules/attributes-order.html
 
 1.  配置文件中添加 ` ...pluginVue.configs['flat/recommended'],`
 2.  官方预设配置中是 waring ，更改为 error 报错 ， rules 中添加 'vue/attributes-order': 'error' 。同时可用下面方式添加自定义属性顺序
@@ -74,7 +74,7 @@ npm 10.9.0
 
 3.  目前仅仅发现只支持 vue 文件，对于 tsx 文件中的属性排序目前暂未找到解决方法
 
-二、import 导入排序 官方文档 ===> https://github.com/import-js/eslint-plugin-import
+二、import 导入排序规则 官方文档 ===> https://github.com/import-js/eslint-plugin-import
 
 1. 插件安装 `pnpm add eslint-plugin-import --save-dev`
 2. 引入 `import importPlugin from 'eslint-plugin-import';`
