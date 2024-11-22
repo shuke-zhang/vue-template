@@ -151,7 +151,9 @@ data } from './data'; // Unable to resolve path to module
 ]
 ```
 
-7. 添加以下代码设置 ECMAScript 版本和模块类型 ===> https://eslint.org/docs/latest/use/configure/language-options
+三、配置 ECMAScript 版本和模块类型
+
+https://eslint.org/docs/latest/use/configure/language-options
 
 ```js
    {
