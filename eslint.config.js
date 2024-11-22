@@ -68,7 +68,13 @@ export default [
       'vue/attributes-order': 'error',
       'import/no-dynamic-require': 'warn', // require其中的参数不能是变量或表达式，必须是一个静态字符串 require('./someModule')
       'import/no-nodejs-modules': 'off', // 取消Node.js 导入模块的检查  默认不检查 这儿添加只是为了注释
-      'import/default': 'off', // 直接关闭，防止出现预期之外错误这个检查ts中可直接报错 如果不关闭则vite配置中 import vueJsx from '@vitejs/plugin-vue-jsx';就会直接报错
+    },
+  },
+  {
+    // 通过 glob 模式匹配所有的 vite 配置文件
+    files: ['vite.config.*'], // 匹配 vite.config.js 和 vite.config.ts
+    rules: {
+      'import/default': 'off', // 禁用 import/default 规则
     },
   },
 ];
