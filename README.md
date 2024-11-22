@@ -44,6 +44,10 @@ npm 10.9.0
     ('flat/essential', 'flat/strongly-recommended', 'flat/recommended')
 
 ]
+// 或者
+ ...pluginVue.configs['flat/essential'],
+  ...pluginVue.configs['flat/strongly-recommended'],
+  ...pluginVue.configs['flat/recommended'],
 ```
 
 一、标签内属性排序规则 vue/attributes-order 配置 官方文档 ===> https://eslint.vuejs.org/rules/attributes-order.html
@@ -145,4 +149,21 @@ data } from './data'; // Unable to resolve path to module
     }
   }
 ]
+```
+
+7. 添加以下代码设置 ECMAScript 版本和模块类型 ===> https://eslint.org/docs/latest/use/configure/language-options
+
+```js
+   {
+    // 设置 ECMAScript 版本和模块类型
+    languageOptions: {
+      ecmaVersion: latest, // 使用 ECMAScript 2024 标准
+      sourceType: 'module', // 指定代码使用 ES 模块化（import 和 export）语法
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+  },
 ```
