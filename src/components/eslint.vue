@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import Comtest from './comtest.vue';
 import type { TestModel } from './types';
-import { data } from './data';
+import datas from './data';
 import { testApi } from '@/api/test';
 
 const s = ref<TestModel>();
@@ -15,7 +15,7 @@ function handleTest() {
 <template>
   <div class="container">sss{{}}</div>
   <div id="ssssss" class="container" @click="handleTest">sss{{}}</div>
-  {{ data }}
+  {{ datas }}
   <Comtest v-model="s" />
 </template>
 
