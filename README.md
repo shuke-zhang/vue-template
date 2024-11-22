@@ -115,7 +115,7 @@ data } from './data'; // Unable to resolve path to module
 
 > 添加以下代码，防止 import/default检测不要的错误
 
-````js
+```js
  {
    // 通过 glob 模式匹配所有的 vite 配置文件 解决 import vueJsx from '@vitejs/plugin-vue-jsx';报错
    files: ['vite.config.*'], // 匹配 vite.config.js 和 vite.config.ts
@@ -123,5 +123,26 @@ data } from './data'; // Unable to resolve path to module
      'import/default': 'off', // 禁用 import/default 规则
    },
  },
-```****
-````
+```
+
+6. 更新自动导入顺序排序 import/order
+
+```js
+"import/order": [
+  "error",  // 表示如果违反规则，将会报错
+  {
+    "groups": [
+      ["type"],                  // 1. 第一个分组：类型声明
+      ["object", "builtin"],     // 2. 第二个分组：对象模块和内置模块
+      "internal",                // 3. 第三个分组：项目内部模块
+      "sibling",                 // 4. 第四个分组：同级模块
+      "index"                    // 5. 第五个分组：当前目录下的索引模块
+    ],
+    "newlines-between": "always",  // 每个分组之间必须有空行
+    "alphabetize": {
+      "order": "asc",             // 按字母升序排列
+      "caseInsensitive": true     // 排序时不区分大小写
+    }
+  }
+]
+```

@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import Comtest from './comtest.vue';
+import type { TreeNode } from './model/test';
 import type { TestModel } from './types';
-import datas from './data';
+
 import { testApi } from '@/api/test';
 
-const s = ref<TestModel>();
+import Comtest from './comtest.vue';
+import datas from './data';
 
+import { ref } from 'vue';
+
+const s = ref<TestModel>();
+const tree = ref<TreeNode>({});
 function handleTest() {
   return testApi();
 }

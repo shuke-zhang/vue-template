@@ -1,8 +1,8 @@
-import pluginVue from 'eslint-plugin-vue';
-import vueTsEslintConfig from '@vue/eslint-config-typescript';
 import pluginVitest from '@vitest/eslint-plugin';
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
+import vueTsEslintConfig from '@vue/eslint-config-typescript';
 import importPlugin from 'eslint-plugin-import';
+import pluginVue from 'eslint-plugin-vue';
 export default [
   {
     // 设置 ECMAScript 版本和模块类型
@@ -68,6 +68,23 @@ export default [
       'vue/attributes-order': 'error',
       'import/no-dynamic-require': 'warn', // require其中的参数不能是变量或表达式，必须是一个静态字符串 require('./someModule')
       'import/no-nodejs-modules': 'off', // 取消Node.js 导入模块的检查  默认不检查 这儿添加只是为了注释
+      'import/order': [
+        'error', // 表示如果违反规则，将会报错
+        {
+          groups: [
+            ['type'], // 1. 第一个分组：类型声明
+            ['object', 'builtin'], // 2. 第二个分组：对象模块和内置模块
+            'internal', // 3. 第三个分组：项目内部模块
+            'sibling', // 4. 第四个分组：同级模块
+            'index', // 5. 第五个分组：当前目录下的索引模块
+          ],
+          'newlines-between': 'always', // 每个分组之间必须有空行
+          alphabetize: {
+            order: 'asc', // 按字母升序排列
+            caseInsensitive: true, // 排序时不区分大小写
+          },
+        },
+      ],
     },
   },
   {
