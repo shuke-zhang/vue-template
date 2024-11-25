@@ -169,3 +169,5 @@ https://eslint.org/docs/latest/use/configure/language-options
     },
   },
 ```
+
+四、配置 全局变量
