@@ -171,3 +171,13 @@ https://eslint.org/docs/latest/use/configure/language-options
 ```
 
 四、配置 全局变量
+https://eslint.org/docs/latest/use/configure/language-options#using-configuration-files
+
+```js
+     globals: {
+        var1: 'writable', // 声明一个可写的全局变量
+        ResponseResult: 'readonly', // 声明一个只读的全局变量
+        ResponseList: 'readonly',
+        ResponseData: 'readonly',
+      }
+```

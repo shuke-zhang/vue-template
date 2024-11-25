@@ -14,6 +14,12 @@ export default [
           jsx: true,
         },
       },
+      globals: {
+        var1: 'writable', // 声明一个可写的全局变量
+        ResponseResult: 'readonly', // 声明一个只读的全局变量
+        ResponseList: 'readonly',
+        ResponseData: 'readonly',
+      },
     },
   },
 
