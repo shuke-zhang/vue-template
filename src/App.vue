@@ -1,6 +1,5 @@
 <script setup lang="ts">
 // import HelloWorld from './components/HelloWorld.vue';
-import type { Action } from 'element-plus';
 
 // import { RouterLink, RouterView } from 'vue-router';
 function test() {
@@ -8,11 +7,9 @@ function test() {
   //   message: '测试sds',
   // });
 
-  ElMessageBox.alert('This is a message', 'Title', {
-    // if you want to disable its autofocus
-    // autofocus: false,
-    confirmButtonText: 'OK',
-    callback: (action: Action) => {
+  ElMessageBox.alert('这是内容', '标题', {
+    confirmButtonText: '确定',
+    callback: () => {
       ElMessage({
         type: 'info',
         message: `测试`,
@@ -20,10 +17,39 @@ function test() {
     },
   });
 }
+
+const tableData = [
+  {
+    date: '2016-05-03',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-02',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-04',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-01',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+];
 </script>
 
 <template>
   <el-button type="primary" @click="test">测试</el-button>
+
+  <el-table :data="tableData" style="width: 100%">
+    <el-table-column prop="date" label="Date" width="180" />
+    <el-table-column prop="name" label="Name" width="180" />
+    <el-table-column prop="address" label="Address" />
+  </el-table>
   <!-- <header>
     <img
       alt="Vue logo"

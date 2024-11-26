@@ -18,7 +18,7 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
     Components({
-      dts: 'types/components.d.ts', // 指定生成的组件声明文件的路径
+      dts: './types/components.d.ts', // 指定生成的组件声明文件的路径
       resolvers: [ElementPlusResolver()],
     }),
   ],
