@@ -227,7 +227,9 @@ export default defineConfig({
 
 4. 如果eslint规则配置为 `'no-undef': 'error',` 即使用 ElMessageBox 等组件报错 `ElMessageBox' is not defined.eslint(no-undef) `
    解决方法：
+
    - 在 vite.config 中 AutoImport 添加
+
    ```js
     eslintrc: {
        enabled: true, // 生成 ESLint 配置，避免 import 报错
@@ -235,4 +237,18 @@ export default defineConfig({
        globalsPropValue: true, // 自动设置全局变量
      }
    ```
-   - 在eslint.config.js 中添加 `...pluginVue.configs['./.eslintrc-auto-import.json']`
+
+   - 在eslint.config.js 中添加
+
+   ```js
+   import autoImportConfig from './.eslintrc-auto-import.json' with { type: 'json' };
+   // 或者
+   import autoImportConfig from './.eslintrc-auto-import.json' assert  { type: 'json' };
+
+     globals: {
+       ...autoImportConfig.globals,
+     },
+   ```
+
+   > **注意：** 使用assert 会报警告 'assert' is deprecated in import statements and support will be removed in V8 v12.6 and Chrome 126; use 'with' instead
+   > 为了支持最新的版本，使用with 即可

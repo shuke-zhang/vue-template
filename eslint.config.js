@@ -1,9 +1,13 @@
+import autoImportConfig from './.eslintrc-auto-import.json' with { type: 'json' };
+
 import pluginVitest from '@vitest/eslint-plugin';
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
 import vueTsEslintConfig from '@vue/eslint-config-typescript';
 import importPlugin from 'eslint-plugin-import';
 import pluginVue from 'eslint-plugin-vue';
+
 export default [
+  // ./.eslintrc-auto-import,
   {
     // 设置 ECMAScript 版本和模块类型
     languageOptions: {
@@ -15,6 +19,7 @@ export default [
         },
       },
       globals: {
+        ...autoImportConfig.globals,
         var1: 'writable', // 声明一个可写的全局变量
         ResponseResult: 'readonly', // 声明一个只读的全局变量
         ResponseList: 'readonly',
