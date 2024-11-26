@@ -181,3 +181,37 @@ https://eslint.org/docs/latest/use/configure/language-options#using-configuratio
         ResponseData: 'readonly',
       }
 ```
+
+# UI 组件库引入
+
+### 一、ElementPlus安装
+
+1.  `pnpm add element-plus` 安装依赖
+
+### 二、按需引入
+
+https://element-plus.org/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC%E5%85%A5
+
+1. `pnpm add -D unplugin-vue-components unplugin-auto-import` 安装依赖
+2. vite 配置文件中添加以下代码
+
+```js
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+
+export default defineConfig({
+  // ...
+  plugins: [
+    // ...
+    AutoImport({
+      dts: './types/auto-imports.d.ts', // 指定生成的自动导入声明文件的路径
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      dts: './types/auto-imports.d.ts', //  指定生成的组件声明文件的路径
+      resolvers: [ElementPlusResolver()],
+    }),
+  ],
+});
+```

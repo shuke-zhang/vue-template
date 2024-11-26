@@ -8,6 +8,7 @@ import Comtest from './comtest.vue';
 import { ref } from 'vue';
 
 const s = ref<TestModel>();
+const sss = ref<TestModel>();
 function handleTest() {
   return testApi();
 }
