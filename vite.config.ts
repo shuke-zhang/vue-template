@@ -15,6 +15,11 @@ export default defineConfig({
     vueDevTools(),
     AutoImport({
       dts: './types/auto-imports.d.ts', // 指定生成的自动导入声明文件的路径
+      eslintrc: {
+        enabled: true, // 生成 ESLint 配置，避免 import 报错
+        filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
+        globalsPropValue: true, // 自动设置全局变量
+      },
       resolvers: [ElementPlusResolver()],
     }),
     Components({

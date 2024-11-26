@@ -30,6 +30,7 @@ export default [
   ...pluginVue.configs['flat/essential'],
   ...pluginVue.configs['flat/strongly-recommended'],
   ...pluginVue.configs['flat/recommended'],
+  ...pluginVue.configs['./.eslintrc-auto-import.json'],
   ...vueTsEslintConfig(), // 用于支持 TypeScript 和 Vue 的 ESLint 配置
   importPlugin.flatConfigs.recommended,
   {
