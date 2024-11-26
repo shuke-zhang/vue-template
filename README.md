@@ -218,15 +218,16 @@ export default defineConfig({
 
 3. 此时如果使用 ElMessageBox 等组件会出现 TS 报错 `找不到名称“ElMessageBox”。ts-plugin`
    解决方法：
-   > 1. 修改 tsconfig.json 配置： include 中增加 "types/\*_/_.d.ts"
-   > 2. 若 tsconfig.json 中没有配置include，则修改 tsconfig.app.json
-   > 3. 此时如果是项目默认配置应该是 `"include": ["env.d.ts", "src/**/*", "src/**/*.vue", "types/**/*.d.ts"]`
+
+- 修改 tsconfig.json 配置： include 中增加 "types/\*_/_.d.ts"
+- 若 tsconfig.json 中没有配置include，则修改 tsconfig.app.json
+- 此时如果是项目默认配置应该是 `"include": ["env.d.ts", "src/**/*", "src/**/*.vue", "types/**/*.d.ts"]`
 
 > **注意：** 使用按需引入后，不能再手动引入 ElMessageBox ，否则会引起样式冲突，需要删除手动引入 ElMessageBox 部分代码
 
 4. 如果eslint规则配置为 `'no-undef': 'error',` 即使用 ElMessageBox 等组件报错 `ElMessageBox' is not defined.eslint(no-undef) `
    解决方法：
-   1. 在 vite.config 中 AutoImport 添加
+   - 在 vite.config 中 AutoImport 添加
    ```js
     eslintrc: {
        enabled: true, // 生成 ESLint 配置，避免 import 报错
@@ -234,4 +235,4 @@ export default defineConfig({
        globalsPropValue: true, // 自动设置全局变量
      }
    ```
-   2. 在eslint.config.js 中添加 `...pluginVue.configs['./.eslintrc-auto-import.json']`
+   - 在eslint.config.js 中添加 `...pluginVue.configs['./.eslintrc-auto-import.json']`
