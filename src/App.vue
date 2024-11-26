@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Download, Search } from '@element-plus/icons-vue';
+
 // import HelloWorld from './components/HelloWorld.vue';
 // import { RouterLink, RouterView } from 'vue-router';
 function test() {
@@ -42,7 +44,8 @@ const tableData = [
 </script>
 
 <template>
-  <el-button type="primary" @click="test">测试</el-button>
+  <el-button type="primary" :icon="Download" @click="test">测试</el-button>
+  <el-button type="primary" :icon="Search" @click="test">搜索</el-button>
 
   <el-table :data="tableData" style="width: 100%">
     <el-table-column prop="date" label="Date" width="180" />

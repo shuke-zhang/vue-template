@@ -3,6 +3,8 @@ import { fileURLToPath, URL } from 'node:url';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import AutoImport from 'unplugin-auto-import/vite';
+import IconsResolver from 'unplugin-icons/resolver';
+import Icons from 'unplugin-icons/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
@@ -20,11 +22,26 @@ export default defineConfig({
         filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
         globalsPropValue: true, // 自动设置全局变量
       },
-      resolvers: [ElementPlusResolver()],
+      resolvers: [
+        ElementPlusResolver(),
+        // 自动导入图标组件
+        IconsResolver({
+          prefix: 'Icon',
+        }),
+      ],
     }),
     Components({
       dts: './types/components.d.ts', // 指定生成的组件声明文件的路径
-      resolvers: [ElementPlusResolver()],
+      resolvers: [
+        // 自动注册图标组件
+        IconsResolver({
+          prefix: 'Icon',
+        }),
+        ElementPlusResolver(),
+      ],
+    }),
+    Icons({
+      autoInstall: true,
     }),
   ],
   resolve: {

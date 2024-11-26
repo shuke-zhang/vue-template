@@ -252,3 +252,36 @@ export default defineConfig({
 
    > **注意：** 使用assert 会报警告 'assert' is deprecated in import statements and support will be removed in V8 v12.6 and Chrome 126; use 'with' instead
    > 为了支持最新的版本，使用with 即可
+
+5. icon图标按需导入
+   - 安装 `pnpm add unplugin-icons --save-dev`
+   - vite.config.js 中添加以下代码
+
+```js
+import IconsResolver from 'unplugin-icons/resolver';
+import Icons from 'unplugin-icons/vite';
+
+    AutoImport({
+      resolvers: [
+        ElementPlusResolver(),
+        // 自动导入图标组件
+        IconsResolver({
+          prefix: 'Icon',
+        }),
+      ],
+    }),
+
+     Components({
+      resolvers: [
+        // 自动注册图标组件
+        IconsResolver({
+          prefix: 'Icon',
+        }),
+        ElementPlusResolver(),
+      ],
+    }),
+
+    Icons({
+      autoInstall: true,
+    }),
+```
