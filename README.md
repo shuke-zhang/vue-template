@@ -286,9 +286,9 @@ import Icons from 'unplugin-icons/vite';
     }),
 ```
 
-# 自动导入插件配置
+# vite.config.ts配置
 
-### 一、vite.config.ts配置
+### 一、自动导入插件配置
 
 - 添加一下代码可对 vue vue-router pinia 自动导入
 - dirs中可对 hooks 中的问价能实现自动导入
@@ -305,7 +305,7 @@ Components({
 });
 ```
 
-- server配置
+### 二、server、build配置
 
 ```js
     server: {
