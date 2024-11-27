@@ -292,6 +292,7 @@ import Icons from 'unplugin-icons/vite';
 
 - 添加一下代码可对 vue vue-router pinia 自动导入
 - dirs中可对 hooks 中的问价能实现自动导入
+- Components 中可对自定义组件实现自动导入
 
 ```js
 AutoImport({
@@ -302,4 +303,24 @@ AutoImport({
 Components({
   dirs: ['./src/components'], // 用于src/components目录下的所有组件都会被自动导入。
 });
+```
+
+- server配置
+
+```js
+    server: {
+      host: '0.0.0.0',
+      open: false,
+      port: 999
+    },
+```
+
+- 打包配置
+
+```js
+  build: {
+    rollupOptions: {
+      external: ['fs'], // 确保不打包 Node.js 模块
+    },
+  },
 ```

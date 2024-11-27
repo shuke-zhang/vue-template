@@ -52,4 +52,14 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  server: {
+    host: '0.0.0.0',
+    open: false,
+    port: 999,
+  },
+  build: {
+    rollupOptions: {
+      external: ['fs'], // 确保不打包 Node.js 模块
+    },
+  },
 });
