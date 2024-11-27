@@ -254,7 +254,7 @@ export default defineConfig({
    > 为了支持最新的版本，使用with 即可
 
 5. icon图标按需导入
-   - 安装 `pnpm add unplugin-icons --save-dev`
+   - 安装 `pnpm install unplugin-icons --save-dev` 和 `pnpm install @element-plus/icons-vue`
    - vite.config.js 中添加以下代码
 
 ```js
