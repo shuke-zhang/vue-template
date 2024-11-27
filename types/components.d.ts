@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     Comtest: typeof import('./../src/components/comtest.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElPagination: typeof import('element-plus/es')['ElPagination']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     Eslint: typeof import('./../src/components/eslint.vue')['default']
@@ -18,6 +19,7 @@ declare module 'vue' {
     IconEcosystem: typeof import('./../src/components/icons/IconEcosystem.vue')['default']
     IconSupport: typeof import('./../src/components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./../src/components/icons/IconTooling.vue')['default']
+    Pagination: typeof import('./../src/components/Pagination/Pagination.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheWelcome: typeof import('./../src/components/TheWelcome.vue')['default']

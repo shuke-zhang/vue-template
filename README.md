@@ -286,7 +286,9 @@ import Icons from 'unplugin-icons/vite';
     }),
 ```
 
-### 三、主题色更改
+### 三、国际化
+
+1. main.ts中添加以下代码 ` import ElementPlus from 'element-plus'; import zhCn from 'element-plus/es/locale/lang/zh-cn';` 和 `app.use(ElementPlus, {locale: zhCn, // 设置中文语言})`
 
 # vite.config.ts配置
 
