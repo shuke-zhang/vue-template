@@ -285,3 +285,21 @@ import Icons from 'unplugin-icons/vite';
       autoInstall: true,
     }),
 ```
+
+# 自动导入插件配置
+
+### 一、vite.config.ts配置
+
+- 添加一下代码可对 vue vue-router pinia 自动导入
+- dirs中可对 hooks 中的问价能实现自动导入
+
+```js
+AutoImport({
+  imports: ['vue', 'vue-router', 'pinia'],
+  dirs: ['./src/hooks'], // 告诉AutoImport插件在哪些目录中自动导入模块。插件会扫描这些目录中的文件，并根据文件内容自动生成导入语句。
+});
+
+Components({
+  dirs: ['./src/components'], // 用于src/components目录下的所有组件都会被自动导入。
+});
+```
