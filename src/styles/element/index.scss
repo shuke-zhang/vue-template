@@ -1,0 +1,24 @@
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': #8989fa,
+    ),
+
+    'danger': (
+      'base': #5fee00,
+    ),
+    'test': (
+      'base': #7eab91,
+    ),
+  )
+);
+
+/**  
+*  主要作用于使用el-form时 当input 的 size 为 large 时添加large-form类名时匹配input的高度，使得他们高度相同，垂直方向上居中,可直接在form上添加large-form类名
+*/
+.large-form {
+  .el-form-item__label {
+    height: 40px !important;
+    line-height: 40px !important;
+  }
+}

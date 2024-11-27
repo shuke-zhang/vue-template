@@ -20,6 +20,18 @@ export default defineConfig(({ mode }) => {
       __APP_TITLE__: `"${env.VITE_APP_TITLE}"`,
       __API_URL__: `"${env.VITE_API_URL}"`,
     },
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@/styles/global.scss" as global; @use "@/styles/element/index.scss" as *;`,
+        },
+      },
+    },
     plugins: [
       vue(),
       vueJsx(),
@@ -34,7 +46,7 @@ export default defineConfig(({ mode }) => {
           globalsPropValue: true, // 自动设置全局变量
         },
         resolvers: [
-          ElementPlusResolver(),
+          ElementPlusResolver({ importStyle: 'sass' }),
           // 自动导入图标组件
           IconsResolver({
             prefix: 'Icon',
@@ -49,23 +61,20 @@ export default defineConfig(({ mode }) => {
           IconsResolver({
             prefix: 'Icon',
           }),
-          ElementPlusResolver(),
+          ElementPlusResolver({ importStyle: 'sass' }),
         ],
       }),
       Icons({
         autoInstall: true,
       }),
     ],
-    resolve: {
-      alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
-      },
-    },
+
     server: {
       host: '0.0.0.0',
       open: false,
       port: 999,
     },
+
     build: {
       rollupOptions: {
         external: ['fs'], // 确保不打包 Node.js 模块

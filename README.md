@@ -305,6 +305,55 @@ import Icons from 'unplugin-icons/vite';
       },
    ```
 
+### 四、自定义主题
+
+1. 安装 sass `pnpm i sass`
+2. 创建文件 styles/element/index.scss 并添加以下代码 , 可根据自己需要改动颜色
+
+```scss
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': #8989fa // 'base': #d1f315,,,,,,,,,
+    ),
+
+    'danger': (
+      'base': #f56c6c,
+      // 'base': #0b12cc,
+      // 危险色
+    ),
+    'test': (
+      'base': #7eab91,
+    ),
+  )
+);
+
+// 定义的全局样式
+// 主要作用于使用el-form时 当input 的 size 为 large 时添加large-form类名时匹配input的高度，使得他们高度相同，垂直方向上居中,可直接在form上添加large-form类名
+.large-form {
+  .el-form-item__label {
+    height: 40px !important;
+    line-height: 40px !important;
+  }
+}
+```
+
+3. vite.config.ts 中添加以下代码
+
+```ts
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@/styles/element/index.scss" as *;`,
+        },
+      },
+    },
+```
+
+> **注意：** 需要在中同时添加 `ElementPlusResolver({ importStyle: 'sass' }),` 否则不生效
+> 如果还需要导入其他scss文件需要设置别名 `additionalData: '@use "@/styles/global.scss" as global; @use "@/styles/element/index.scss" as *;' `
+> 其中global为全局样式的别名 ，如果想要使用 global.scss 文件中的变量需要 在变量前加上 global. 例如 `background-color: global.$color-system-primary;`
+
 # vite.config.ts配置
 
 ### 一、自动导入插件配置

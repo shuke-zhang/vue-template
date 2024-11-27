@@ -59,7 +59,8 @@ function getList() {
 
 <template>
   <el-button type="primary" :icon="Download" @click="test">测试</el-button>
-  <el-button type="primary" :icon="Search" @click="test">搜索</el-button>
+  <el-button type="danger" :icon="Search" @click="test">搜索</el-button>
+  <el-button type="warning" :icon="Search" @click="test">搜索</el-button>
   {{ data }}
   <el-table :data="tableData" style="width: 100%">
     <el-table-column prop="date" label="Date" width="180" />
