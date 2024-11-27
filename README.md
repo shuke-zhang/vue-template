@@ -289,8 +289,10 @@ import Icons from 'unplugin-icons/vite';
 ### 三、国际化
 
 1. main.ts中添加以下代码 ` import ElementPlus from 'element-plus'; import zhCn from 'element-plus/es/locale/lang/zh-cn';` 和 `app.use(ElementPlus, {locale: zhCn, // 设置中文语言})`
+
    > 会报错 Unable to resolve path to module 'element-plus/es/locale/lang/zh-cn'.eslintimport/no-unresolved
    > 并且main.ts中第一行会有多项eslint报错，其主要是识别不到 element-plus 的配置文件，解决方法如下
+
    ```js
     'import/resolver': {
         alias: {
@@ -391,3 +393,36 @@ declare const __API_URL__: string;
 ```
 
 3. 动态设置网页标题 直接在index.html中添加 `<title>%VITE_APP_TITLE%</title>`
+
+#### vitest 配置
+
+1. 由于vite.config.ts 中 defineConfig 改编成了函数式写法， 所以 vitest 配置中也需要修改
+2. 声明一个mode `const mode = process.env.NODE_ENV || 'development';`
+3. 重新声明 vitest 能识别的 `const viteConfigResult = viteConfig({ mode } as ConfigEnv);`
+4. 全部代码
+
+```ts
+import { fileURLToPath } from 'node:url';
+
+import viteConfig from './vite.config';
+
+import {
+  mergeConfig,
+  defineConfig,
+  configDefaults,
+  ConfigEnv,
+} from 'vitest/config';
+// 假设你需要加载当前的环境变量（你可以根据需要调整）
+const mode = process.env.NODE_ENV || 'development';
+const viteConfigResult = viteConfig({ mode } as ConfigEnv);
+export default mergeConfig(
+  viteConfigResult,
+  defineConfig({
+    test: {
+      environment: 'jsdom',
+      exclude: [...configDefaults.exclude, 'e2e/**'],
+      root: fileURLToPath(new URL('./', import.meta.url)),
+    },
+  }),
+);
+```
