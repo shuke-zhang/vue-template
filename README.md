@@ -286,6 +286,8 @@ import Icons from 'unplugin-icons/vite';
     }),
 ```
 
+### 三、主题色更改
+
 # vite.config.ts配置
 
 ### 一、自动导入插件配置
@@ -372,3 +374,5 @@ declare const __PROD__: boolean;
 declare const __APP_TITLE__: string;
 declare const __API_URL__: string;
 ```
+
+3. 动态设置网页标题 直接在index.html中添加 `<title>%VITE_APP_TITLE%</title>`
