@@ -324,3 +324,51 @@ Components({
     },
   },
 ```
+
+### 三、开发、生产环境配置
+
+#### 环境变量配置
+
+1. 将 `defineConfig({})` 修改为 `defineConfig(({  mode })=>{})` 的函数配置 ===> https://cn.vite.dev/config/
+2. 加载环境变量：读取.env文件中的变量并解析成对象env。 `const env = loadEnv(mode, process.cwd(), '');`
+3. 在项目根目录下生成 `.env`、`.env.development`、`.env.production` 三个文件，分别用于所有环境、开发环境、生产环境的环境变量配置。
+
+   ```js
+   // .env
+   # 项目名称
+   VITE_APP_TITLE = '舒克'
+   ```
+
+   ```js
+   // . env.development
+   VITE_API_URL = 'http://192.168.4.209:88'; // 开发环境的 API 地址
+   ```
+
+   ```js
+   // .env.production
+   VITE_API_URL = 'https://vue.ruoyi.vip'; // 生产环境的 API 地址
+   ```
+
+#### 定义全局变量
+
+https://cn.vite.dev/config/shared-options.html#define
+
+1. vite.config.ts 中添加以下代码
+
+```js
+    define: {
+      __DEV__: mode == 'development',
+      __PROD__: mode == 'production',
+      __TITLE__: `"${env.VITE_APP_TITLE}"`,
+      __API_URL__: `"${env.VITE_API_URL}"`,
+    },
+```
+
+2. env.d.ts 中添加以下代码，解决ts类型报错。如果没有该文件则创建，并在 tsconfig.app.json 的 include 中添加该文件
+
+```js
+declare const __DEV__: boolean;
+declare const __PROD__: boolean;
+declare const __APP_TITLE__: string;
+declare const __API_URL__: string;
+```

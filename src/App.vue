@@ -18,6 +18,10 @@ function test() {
     },
   });
 }
+console.log(__DEV__, '__DEV__');
+console.log(__PROD__, '__PROD__');
+console.log(__APP_TITLE__, '__APP_TITLE__');
+console.log(__API_URL__, '__API_URL__');
 
 const tableData = [
   {
