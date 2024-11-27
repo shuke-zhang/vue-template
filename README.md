@@ -289,6 +289,19 @@ import Icons from 'unplugin-icons/vite';
 ### 三、国际化
 
 1. main.ts中添加以下代码 ` import ElementPlus from 'element-plus'; import zhCn from 'element-plus/es/locale/lang/zh-cn';` 和 `app.use(ElementPlus, {locale: zhCn, // 设置中文语言})`
+   > 会报错 Unable to resolve path to module 'element-plus/es/locale/lang/zh-cn'.eslintimport/no-unresolved
+   > 并且main.ts中第一行会有多项eslint报错，其主要是识别不到 element-plus 的配置文件，解决方法如下
+   ```js
+    'import/resolver': {
+        alias: {
+          map: [
+            // 这里参照别名配置映射
+            ['element-plus', './node_modules/element-plus'],
+          ],
+
+        },
+      },
+   ```
 
 # vite.config.ts配置
 

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { data } from '@/components/data';
+
 import { Download, Search } from '@element-plus/icons-vue';
 
 // import HelloWorld from './components/HelloWorld.vue';
@@ -58,7 +60,7 @@ function getList() {
 <template>
   <el-button type="primary" :icon="Download" @click="test">测试</el-button>
   <el-button type="primary" :icon="Search" @click="test">搜索</el-button>
-
+  {{ data }}
   <el-table :data="tableData" style="width: 100%">
     <el-table-column prop="date" label="Date" width="180" />
     <el-table-column prop="name" label="Name" width="180" />
