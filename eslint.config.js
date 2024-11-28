@@ -62,6 +62,7 @@ export default [
             // 这里参照别名配置映射
             ['@', './src'],
             ['element-plus', './node_modules/element-plus'],
+            ['virtual:uno.css', './node_modules/unocss'],
           ],
           // 告诉resolver-alias有哪些后缀的文件要解析
           extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],

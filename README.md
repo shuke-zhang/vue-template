@@ -314,7 +314,7 @@ import Icons from 'unplugin-icons/vite';
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
   $colors: (
     'primary': (
-      'base': #8989fa // 'base': #d1f315,,,,,,,,,
+      'base': #8989fa // 'base': #d1f315,,,,,,,,,,,,,,,
     ),
 
     'danger': (
@@ -475,3 +475,33 @@ export default mergeConfig(
   }),
 );
 ```
+
+# UnoCSS 配置
+
+https://unocss.nodejs.cn/
+
+1. 安装 `pnpm add -D unocss`
+2. 引入安装插件
+
+```js
+import UnoCSS from 'unocss/vite';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  plugins: [UnoCSS()],
+});
+```
+
+3. 创建 uno.config.ts 文件
+
+```js
+import { defineConfig } from 'unocss';
+
+export default defineConfig({
+  // ...UnoCSS options
+});
+```
+
+4. 在main.ts中引入css `import 'virtual:uno.css'`
+   > **注意：** 此时由于`unplugin-auto-import`插件识别不到 virtual:uno.css 路径，所以main.ts中会报错
+   > 解决方法： 在eslint中 import/resolver 添加 `['virtual:uno.css', './node_modules/unocss'],` 映射即可解决

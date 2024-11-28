@@ -15,6 +15,7 @@
     "Parens",
     "Pinia",
     "tsbuildinfo",
+    "unocss",
     "unplugin",
     "Vite",
     "vue'eslintimport"
