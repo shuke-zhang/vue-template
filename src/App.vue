@@ -61,7 +61,12 @@ function getList() {
   <el-button type="primary" :icon="Download" @click="test">测试</el-button>
   <el-button type="danger" :icon="Search" @click="test">搜索</el-button>
   <el-button type="warning" :icon="Search" @click="test">搜索</el-button>
+
+  <div border-solid ml-3 mt-30 px-4 w-100 h-100 border-5 class="bg-#282c34">
+    ssss
+  </div>
   {{ data }}
+
   <el-table :data="tableData" style="width: 100%">
     <el-table-column prop="date" label="Date" width="180" />
     <el-table-column prop="name" label="Name" width="180" />
@@ -99,11 +104,13 @@ function getList() {
 header {
   line-height: 1.5;
   max-height: 100vh;
+  background-color: #fff;
 }
 
 .logo {
   display: block;
   margin: 0 auto 2rem;
+  background-color: red;
 }
 
 nav {
