@@ -2,7 +2,7 @@
 import { data } from '@/components/data';
 
 import { Download, Search } from '@element-plus/icons-vue';
-
+import {logger} from '@shuke~/logger';
 // import HelloWorld from './components/HelloWorld.vue';
 // import { RouterLink, RouterView } from 'vue-router';
 function test() {
@@ -55,6 +55,8 @@ const queryParams = reactive({
 function getList() {
   console.log(queryParams);
 }
+
+logger.info('测试');
 </script>
 
 <template>

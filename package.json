@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
+    "@shuke~/logger": "^0.0.1",
     "element-plus": "^2.8.8",
     "pinia": "^2.2.4",
     "sass": "^1.81.0",
