@@ -8,10 +8,6 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Comtest: typeof import('./../src/components/comtest.vue')['default']
-    ElButton: typeof import('element-plus/es')['ElButton']
-    ElPagination: typeof import('element-plus/es')['ElPagination']
-    ElTable: typeof import('element-plus/es')['ElTable']
-    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     Eslint: typeof import('./../src/components/eslint.vue')['default']
     HelloWorld: typeof import('./../src/components/HelloWorld.vue')['default']
     IconCommunity: typeof import('./../src/components/icons/IconCommunity.vue')['default']
