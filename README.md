@@ -1,5 +1,5 @@
 项目搭建-记录
-项目使用版本  
+项目使用版本
 node 20.12.2
 pnpm 9.12.2
 npm 10.9.0
@@ -182,6 +182,37 @@ https://eslint.org/docs/latest/use/configure/language-options#using-configuratio
       }
 ```
 
+五、 使用 antfu 直接配置 eslint 规则 --- https://github.com/antfu/eslint-config
+
+1.  安装 `pnpm add @antfu/eslint-config eslint-plugin-format  --save-dev`
+2.  配置文件中直接写入以下代码即可完成配置 ， 本配置方便快捷更合适使用
+
+```js
+import antfu from "@antfu/eslint-config";
+
+export default antfu({
+  formatters: {
+    css: true,
+    html: true,
+    markdown: true,
+    prettierOptions: {
+      semi: true, // 确保添加分号
+      singleQuote: true, // 使用单引号
+      trailingComma: "es5", // 在对象、数组等末尾添加逗号
+    },
+  },
+  vue: true,
+  rules: {
+    "no-console": "off",
+    semi: "error",
+    "ts/no-unused-expressions": "off",
+    "vue/custom-event-name-casing": "off",
+    // 确保与 Prettier 的分号设置一致
+    "@stylistic/semi": ["error", "always"],
+  },
+});
+```
+
 # UI 组件库引入
 
 ### 一、ElementPlus安装
@@ -196,20 +227,20 @@ https://element-plus.org/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC
 2. vite 配置文件中添加以下代码
 
 ```js
-import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import AutoImport from "unplugin-auto-import/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import Components from "unplugin-vue-components/vite";
 
 export default defineConfig({
   // ...
   plugins: [
     // ...
     AutoImport({
-      dts: './types/auto-imports.d.ts', // 指定生成的自动导入声明文件的路径
+      dts: "./types/auto-imports.d.ts", // 指定生成的自动导入声明文件的路径
       resolvers: [ElementPlusResolver()],
     }),
     Components({
-      dts: './types/auto-imports.d.ts', //  指定生成的组件声明文件的路径
+      dts: "./types/auto-imports.d.ts", //  指定生成的组件声明文件的路径
       resolvers: [ElementPlusResolver()],
     }),
   ],
@@ -311,19 +342,20 @@ import Icons from 'unplugin-icons/vite';
 2. 创建文件 styles/element/index.scss 并添加以下代码 , 可根据自己需要改动颜色
 
 ```scss
-@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
   $colors: (
-    'primary': (
-      'base': #8989fa // 'base': #d1f315,,,,,,,,,,,,,,,,,,,,,
+    "primary": (
+      "base": #8989fa,
+      // 'base': #d1f315,,,,,,,,,,,,,,,,,,,,,
     ),
 
-    'danger': (
-      'base': #f56c6c,
+    "danger": (
+      "base": #f56c6c,
       // 'base': #0b12cc,
-      // 危险色
+       // 危险色
     ),
-    'test': (
-      'base': #7eab91,
+    "test": (
+      "base": #7eab91,
     ),
   )
 );
@@ -364,12 +396,12 @@ import Icons from 'unplugin-icons/vite';
 
 ```js
 AutoImport({
-  imports: ['vue', 'vue-router', 'pinia'],
-  dirs: ['./src/hooks'], // 告诉AutoImport插件在哪些目录中自动导入模块。插件会扫描这些目录中的文件，并根据文件内容自动生成导入语句。
+  imports: ["vue", "vue-router", "pinia"],
+  dirs: ["./src/hooks"], // 告诉AutoImport插件在哪些目录中自动导入模块。插件会扫描这些目录中的文件，并根据文件内容自动生成导入语句。
 });
 
 Components({
-  dirs: ['./src/components'], // 用于src/components目录下的所有组件都会被自动导入。
+  dirs: ["./src/components"], // 用于src/components目录下的所有组件都会被自动导入。
 });
 ```
 
@@ -409,12 +441,12 @@ Components({
 
    ```js
    // . env.development
-   VITE_API_URL = 'http://192.168.4.209:88'; // 开发环境的 API 地址
+   VITE_API_URL = "http://192.168.4.209:88"; // 开发环境的 API 地址
    ```
 
    ```js
    // .env.production
-   VITE_API_URL = 'https://vue.ruoyi.vip'; // 生产环境的 API 地址
+   VITE_API_URL = "https://vue.ruoyi.vip"; // 生产环境的 API 地址
    ```
 
 #### 定义全局变量
@@ -451,28 +483,28 @@ declare const __API_URL__: string;
 4. 全部代码
 
 ```ts
-import { fileURLToPath } from 'node:url';
-
-import viteConfig from './vite.config';
+import { fileURLToPath } from "node:url";
 
 import {
-  mergeConfig,
-  defineConfig,
   configDefaults,
   ConfigEnv,
-} from 'vitest/config';
+  defineConfig,
+  mergeConfig,
+} from "vitest/config";
+
+import viteConfig from "./vite.config";
 // 假设你需要加载当前的环境变量（你可以根据需要调整）
-const mode = process.env.NODE_ENV || 'development';
+const mode = process.env.NODE_ENV || "development";
 const viteConfigResult = viteConfig({ mode } as ConfigEnv);
 export default mergeConfig(
   viteConfigResult,
   defineConfig({
     test: {
-      environment: 'jsdom',
-      exclude: [...configDefaults.exclude, 'e2e/**'],
-      root: fileURLToPath(new URL('./', import.meta.url)),
+      environment: "jsdom",
+      exclude: [...configDefaults.exclude, "e2e/**"],
+      root: fileURLToPath(new URL("./", import.meta.url)),
     },
-  }),
+  })
 );
 ```
 
@@ -484,8 +516,8 @@ https://unocss.nodejs.cn/
 2. 引入安装插件
 
 ```js
-import UnoCSS from 'unocss/vite';
-import { defineConfig } from 'vite';
+import UnoCSS from "unocss/vite";
+import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [UnoCSS()],
@@ -495,7 +527,7 @@ export default defineConfig({
 3. 创建 uno.config.ts 文件
 
 ```js
-import { defineConfig } from 'unocss';
+import { defineConfig } from "unocss";
 
 export default defineConfig({
   // ...UnoCSS options
@@ -508,8 +540,8 @@ export default defineConfig({
 5. 在 uno.config.ts 中添加以下代码 完成预设配置
 
 ```ts
-import { presetUno, presetAttributify } from 'unocss';
-presets: [presetUno(), presetAttributify()],
+import { presetAttributify, presetUno } from "unocss";
+presets: [presetUno(), presetAttributify()];
 ```
 
 6. UnoCSS交互式文档 ===> https://unocss.dev/interactive/ 可搜索相关css直接使用
