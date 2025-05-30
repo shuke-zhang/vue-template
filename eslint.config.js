@@ -17,6 +17,7 @@ export default antfu({
     'no-console': 'off',
     'ts/no-unused-expressions': 'off',
     'vue/custom-event-name-casing': 'off',
+    'node/prefer-global/process': 'off',
     // 确保与 Prettier 的分号设置一致
     '@stylistic/semi': ['error', 'always'],
   },

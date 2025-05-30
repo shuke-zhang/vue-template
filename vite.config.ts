@@ -16,8 +16,8 @@ export default defineConfig(({ mode }) => {
 
   return {
     define: {
-      __DEV__: mode == 'development',
-      __PROD__: mode == 'production',
+      __DEV__: mode === 'development',
+      __PROD__: mode === 'production',
       __APP_TITLE__: `"${env.VITE_APP_TITLE}"`,
       __API_URL__: `"${env.VITE_API_URL}"`,
     },
