@@ -27,16 +27,16 @@ npm 10.9.0
 √ 是否引入 Vue DevTools 7 扩展用于调试? (试验阶段) ... 否 / 是√
 ```
 
-完成上述操作即可实现vue项目的初始化
+完成上述操作即可实现 vue 项目的初始化
 
 # eslint / prettierrc 配置 实现代码检查和格式化
 
-> 1. eslint 9.0版本之后配置方式完全变化 官方文档 - https://eslint.org/docs/latest/use/getting-started
+> 1. eslint 9.0 版本之后配置方式完全变化 官方文档 - https://eslint.org/docs/latest/use/getting-started
 > 2. 具体详细配置可参照官方的配置文档 - https://eslint.org/docs/latest/use/configure/configuration-files#configuration-file
 
 ##### 配置文件配置 详见 eslint.config.js
 
-###### vue官方 eslint 插件 地址===>https://eslint.vuejs.org/rules/
+###### vue 官方 eslint 插件 地址===>https://eslint.vuejs.org/rules/
 
 ```js
 ...pluginVue.configs[
@@ -110,14 +110,14 @@ data } from './data'; // Unable to resolve path to module
   },
 ```
 
-5. 根据官网提示，rules中添加以下代码，以便于更好约束导入
+5. 根据官网提示，rules 中添加以下代码，以便于更好约束导入
 
 ```js
  'import/no-dynamic-require': 'warn', // require其中的参数不能是变量或表达式，必须是一个静态字符串 require('./someModule')
  'import/no-nodejs-modules': 'off', // 取消Node.js 导入模块的检查  默认不检查 这儿添加只是为了注释
 ```
 
-> 添加以下代码，防止 import/default检测不要的错误
+> 添加以下代码，防止 import/default 检测不要的错误
 
 ```js
  {
@@ -188,7 +188,7 @@ https://eslint.org/docs/latest/use/configure/language-options#using-configuratio
 2.  配置文件中直接写入以下代码即可完成配置 ， 本配置方便快捷更合适使用
 
 ```js
-import antfu from "@antfu/eslint-config";
+import antfu from '@antfu/eslint-config';
 
 export default antfu({
   formatters: {
@@ -198,24 +198,25 @@ export default antfu({
     prettierOptions: {
       semi: true, // 确保添加分号
       singleQuote: true, // 使用单引号
-      trailingComma: "es5", // 在对象、数组等末尾添加逗号
+      trailingComma: 'es5', // 在对象、数组等末尾添加逗号
     },
   },
   vue: true,
   rules: {
-    "no-console": "off",
-    semi: "error",
-    "ts/no-unused-expressions": "off",
-    "vue/custom-event-name-casing": "off",
+    'no-console': 'off',
+    semi: 'error',
+    'ts/no-unused-expressions': 'off',
+    'vue/custom-event-name-casing': 'off',
+    'node/prefer-global/process': 'off',
     // 确保与 Prettier 的分号设置一致
-    "@stylistic/semi": ["error", "always"],
+    '@stylistic/semi': ['error', 'always'],
   },
 });
 ```
 
 # UI 组件库引入
 
-### 一、ElementPlus安装
+### 一、ElementPlus 安装
 
 1.  `pnpm add element-plus` 安装依赖
 
@@ -227,20 +228,20 @@ https://element-plus.org/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC
 2. vite 配置文件中添加以下代码
 
 ```js
-import AutoImport from "unplugin-auto-import/vite";
-import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
-import Components from "unplugin-vue-components/vite";
+import AutoImport from 'unplugin-auto-import/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import Components from 'unplugin-vue-components/vite';
 
 export default defineConfig({
   // ...
   plugins: [
     // ...
     AutoImport({
-      dts: "./types/auto-imports.d.ts", // 指定生成的自动导入声明文件的路径
+      dts: './types/auto-imports.d.ts', // 指定生成的自动导入声明文件的路径
       resolvers: [ElementPlusResolver()],
     }),
     Components({
-      dts: "./types/auto-imports.d.ts", //  指定生成的组件声明文件的路径
+      dts: './types/auto-imports.d.ts', //  指定生成的组件声明文件的路径
       resolvers: [ElementPlusResolver()],
     }),
   ],
@@ -251,12 +252,12 @@ export default defineConfig({
    解决方法：
 
 - 修改 tsconfig.json 配置： include 中增加 "types/\*_/_.d.ts"
-- 若 tsconfig.json 中没有配置include，则修改 tsconfig.app.json
+- 若 tsconfig.json 中没有配置 include，则修改 tsconfig.app.json
 - 此时如果是项目默认配置应该是 `"include": ["env.d.ts", "src/**/*", "src/**/*.vue", "types/**/*.d.ts"]`
 
 > **注意：** 使用按需引入后，不能再手动引入 ElMessageBox ，否则会引起样式冲突，需要删除手动引入 ElMessageBox 部分代码
 
-4. 如果eslint规则配置为 `'no-undef': 'error',` 即使用 ElMessageBox 等组件报错 `ElMessageBox' is not defined.eslint(no-undef) `
+4. 如果 eslint 规则配置为 `'no-undef': 'error',` 即使用 ElMessageBox 等组件报错 `ElMessageBox' is not defined.eslint(no-undef) `
    解决方法：
 
    - 在 vite.config 中 AutoImport 添加
@@ -269,7 +270,7 @@ export default defineConfig({
      }
    ```
 
-   - 在eslint.config.js 中添加
+   - 在 eslint.config.js 中添加
 
    ```js
    import autoImportConfig from './.eslintrc-auto-import.json' with { type: 'json' };
@@ -281,10 +282,10 @@ export default defineConfig({
      },
    ```
 
-   > **注意：** 使用assert 会报警告 'assert' is deprecated in import statements and support will be removed in V8 v12.6 and Chrome 126; use 'with' instead
-   > 为了支持最新的版本，使用with 即可
+   > **注意：** 使用 assert 会报警告 'assert' is deprecated in import statements and support will be removed in V8 v12.6 and Chrome 126; use 'with' instead
+   > 为了支持最新的版本，使用 with 即可
 
-5. icon图标按需导入
+5. icon 图标按需导入
    - 安装 `pnpm install unplugin-icons --save-dev` 和 `pnpm install @element-plus/icons-vue`
    - vite.config.js 中添加以下代码
 
@@ -319,10 +320,10 @@ import Icons from 'unplugin-icons/vite';
 
 ### 三、国际化
 
-1. main.ts中添加以下代码 ` import ElementPlus from 'element-plus'; import zhCn from 'element-plus/es/locale/lang/zh-cn';` 和 `app.use(ElementPlus, {locale: zhCn, // 设置中文语言})`
+1. main.ts 中添加以下代码 ` import ElementPlus from 'element-plus'; import zhCn from 'element-plus/es/locale/lang/zh-cn';` 和 `app.use(ElementPlus, {locale: zhCn, // 设置中文语言})`
 
    > 会报错 Unable to resolve path to module 'element-plus/es/locale/lang/zh-cn'.eslintimport/no-unresolved
-   > 并且main.ts中第一行会有多项eslint报错，其主要是识别不到 element-plus 的配置文件，解决方法如下
+   > 并且 main.ts 中第一行会有多项 eslint 报错，其主要是识别不到 element-plus 的配置文件，解决方法如下
 
    ```js
     'import/resolver': {
@@ -342,20 +343,20 @@ import Icons from 'unplugin-icons/vite';
 2. 创建文件 styles/element/index.scss 并添加以下代码 , 可根据自己需要改动颜色
 
 ```scss
-@forward "element-plus/theme-chalk/src/common/var.scss" with (
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
   $colors: (
-    "primary": (
-      "base": #8989fa,
+    'primary': (
+      'base': #8989fa,
       // 'base': #d1f315,,,,,,,,,,,,,,,,,,,,,
     ),
 
-    "danger": (
-      "base": #f56c6c,
+    'danger': (
+      'base': #f56c6c,
       // 'base': #0b12cc,
-       // 危险色
+      // 危险色,
     ),
-    "test": (
-      "base": #7eab91,
+    'test': (
+      'base': #7eab91,
     ),
   )
 );
@@ -383,29 +384,29 @@ import Icons from 'unplugin-icons/vite';
 ```
 
 > **注意：** 需要在中同时添加 `ElementPlusResolver({ importStyle: 'sass' }),` 否则不生效
-> 如果还需要导入其他scss文件需要设置别名 `additionalData: '@use "@/styles/global.scss" as global; @use "@/styles/element/index.scss" as *;' `
-> 其中global为全局样式的别名 ，如果想要使用 global.scss 文件中的变量需要 在变量前加上 global. 例如 `background-color: global.$color-system-primary;`
+> 如果还需要导入其他 scss 文件需要设置别名 `additionalData: '@use "@/styles/global.scss" as global; @use "@/styles/element/index.scss" as *;' `
+> 其中 global 为全局样式的别名 ，如果想要使用 global.scss 文件中的变量需要 在变量前加上 global. 例如 `background-color: global.$color-system-primary;`
 
-# vite.config.ts配置
+# vite.config.ts 配置
 
 ### 一、自动导入插件配置
 
 - 添加一下代码可对 vue vue-router pinia 自动导入
-- dirs中可对 hooks 中的问价能实现自动导入
+- dirs 中可对 hooks 中的问价能实现自动导入
 - Components 中可对自定义组件实现自动导入
 
 ```js
 AutoImport({
-  imports: ["vue", "vue-router", "pinia"],
-  dirs: ["./src/hooks"], // 告诉AutoImport插件在哪些目录中自动导入模块。插件会扫描这些目录中的文件，并根据文件内容自动生成导入语句。
+  imports: ['vue', 'vue-router', 'pinia'],
+  dirs: ['./src/hooks'], // 告诉AutoImport插件在哪些目录中自动导入模块。插件会扫描这些目录中的文件，并根据文件内容自动生成导入语句。
 });
 
 Components({
-  dirs: ["./src/components"], // 用于src/components目录下的所有组件都会被自动导入。
+  dirs: ['./src/components'], // 用于src/components目录下的所有组件都会被自动导入。
 });
 ```
 
-### 二、server、build配置
+### 二、server、build 配置
 
 ```js
     server: {
@@ -430,7 +431,7 @@ Components({
 #### 环境变量配置
 
 1. 将 `defineConfig({})` 修改为 `defineConfig(({  mode })=>{})` 的函数配置 ===> https://cn.vite.dev/config/
-2. 加载环境变量：读取.env文件中的变量并解析成对象env。 `const env = loadEnv(mode, process.cwd(), '');`
+2. 加载环境变量：读取.env 文件中的变量并解析成对象 env。 `const env = loadEnv(mode, process.cwd(), '');`
 3. 在项目根目录下生成 `.env`、`.env.development`、`.env.production` 三个文件，分别用于所有环境、开发环境、生产环境的环境变量配置。
 
    ```js
@@ -441,12 +442,12 @@ Components({
 
    ```js
    // . env.development
-   VITE_API_URL = "http://192.168.4.209:88"; // 开发环境的 API 地址
+   VITE_API_URL = 'http://192.168.4.209:88'; // 开发环境的 API 地址
    ```
 
    ```js
    // .env.production
-   VITE_API_URL = "https://vue.ruoyi.vip"; // 生产环境的 API 地址
+   VITE_API_URL = 'https://vue.ruoyi.vip'; // 生产环境的 API 地址
    ```
 
 #### 定义全局变量
@@ -464,7 +465,7 @@ https://cn.vite.dev/config/shared-options.html#define
     },
 ```
 
-2. env.d.ts 中添加以下代码，解决ts类型报错。如果没有该文件则创建，并在 tsconfig.app.json 的 include 中添加该文件
+2. env.d.ts 中添加以下代码，解决 ts 类型报错。如果没有该文件则创建，并在 tsconfig.app.json 的 include 中添加该文件
 
 ```js
 declare const __DEV__: boolean;
@@ -473,36 +474,36 @@ declare const __APP_TITLE__: string;
 declare const __API_URL__: string;
 ```
 
-3. 动态设置网页标题 直接在index.html中添加 `<title>%VITE_APP_TITLE%</title>`
+3. 动态设置网页标题 直接在 index.html 中添加 `<title>%VITE_APP_TITLE%</title>`
 
 #### vitest 配置
 
-1. 由于vite.config.ts 中 defineConfig 改编成了函数式写法， 所以 vitest 配置中也需要修改
-2. 声明一个mode `const mode = process.env.NODE_ENV || 'development';`
+1. 由于 vite.config.ts 中 defineConfig 改编成了函数式写法， 所以 vitest 配置中也需要修改
+2. 声明一个 mode `const mode = process.env.NODE_ENV || 'development';`
 3. 重新声明 vitest 能识别的 `const viteConfigResult = viteConfig({ mode } as ConfigEnv);`
 4. 全部代码
 
 ```ts
-import { fileURLToPath } from "node:url";
+import { fileURLToPath } from 'node:url';
 
 import {
   configDefaults,
   ConfigEnv,
   defineConfig,
   mergeConfig,
-} from "vitest/config";
+} from 'vitest/config';
 
-import viteConfig from "./vite.config";
+import viteConfig from './vite.config';
 // 假设你需要加载当前的环境变量（你可以根据需要调整）
-const mode = process.env.NODE_ENV || "development";
+const mode = process.env.NODE_ENV || 'development';
 const viteConfigResult = viteConfig({ mode } as ConfigEnv);
 export default mergeConfig(
   viteConfigResult,
   defineConfig({
     test: {
-      environment: "jsdom",
-      exclude: [...configDefaults.exclude, "e2e/**"],
-      root: fileURLToPath(new URL("./", import.meta.url)),
+      environment: 'jsdom',
+      exclude: [...configDefaults.exclude, 'e2e/**'],
+      root: fileURLToPath(new URL('./', import.meta.url)),
     },
   })
 );
@@ -512,12 +513,12 @@ export default mergeConfig(
 
 https://unocss.nodejs.cn/
 
-1. 安装 `pnpm add -D unocss` 下载vscode扩展 - `UnoCSS`
+1. 安装 `pnpm add -D unocss` 下载 vscode 扩展 - `UnoCSS`
 2. 引入安装插件
 
 ```js
-import UnoCSS from "unocss/vite";
-import { defineConfig } from "vite";
+import UnoCSS from 'unocss/vite';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [UnoCSS()],
@@ -527,21 +528,21 @@ export default defineConfig({
 3. 创建 uno.config.ts 文件
 
 ```js
-import { defineConfig } from "unocss";
+import { defineConfig } from 'unocss';
 
 export default defineConfig({
   // ...UnoCSS options
 });
 ```
 
-4. 在main.ts中引入css `import 'virtual:uno.css'`
-   > **注意：** 此时由于`unplugin-auto-import`插件识别不到 virtual:uno.css 路径，所以main.ts中会报错
-   > 解决方法： 在eslint中 import/resolver 添加 `['virtual:uno.css', './node_modules/unocss'],` 映射即可解决
+4. 在 main.ts 中引入 css `import 'virtual:uno.css'`
+   > **注意：** 此时由于`unplugin-auto-import`插件识别不到 virtual:uno.css 路径，所以 main.ts 中会报错
+   > 解决方法： 在 eslint 中 import/resolver 添加 `['virtual:uno.css', './node_modules/unocss'],` 映射即可解决
 5. 在 uno.config.ts 中添加以下代码 完成预设配置
 
 ```ts
-import { presetAttributify, presetUno } from "unocss";
+import { presetAttributify, presetUno } from 'unocss';
 presets: [presetUno(), presetAttributify()];
 ```
 
-6. UnoCSS交互式文档 ===> https://unocss.dev/interactive/ 可搜索相关css直接使用
+6. UnoCSS 交互式文档 ===> https://unocss.dev/interactive/ 可搜索相关 css 直接使用
