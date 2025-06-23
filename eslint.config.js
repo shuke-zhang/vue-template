@@ -20,5 +20,6 @@ export default antfu({
     'node/prefer-global/process': 'off',
     // 确保与 Prettier 的分号设置一致
     '@stylistic/semi': ['error', 'always'],
+    'style/eol-last': 'off',
   },
 });
