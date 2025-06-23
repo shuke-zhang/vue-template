@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const s = 1;
 </script>
 
 <template>
