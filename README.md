@@ -353,7 +353,7 @@ import Icons from 'unplugin-icons/vite';
     'danger': (
       'base': #f56c6c,
       // 'base': #0b12cc,
-      // 危险色,,,,,,,,,,,,,,,,,,,,,,,
+      // 危险色,,,,,,,,,,,,,,,,,,,,,,,,,,
     ),
     'test': (
       'base': #7eab91,
@@ -576,3 +576,8 @@ presets: [presetUno(), presetAttributify()];
       }
       }
 ```
+
+# axios
+
+1. 采用了个人自定义 axios 的库封装
+2. 安装 `pnpm add axios qs @shuke~/request` 具体配置方式可参考 utils/request

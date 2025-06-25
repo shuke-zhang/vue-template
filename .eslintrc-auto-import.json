@@ -89,6 +89,26 @@
     "watch": true,
     "watchEffect": true,
     "watchPostEffect": true,
-    "watchSyncEffect": true
+    "watchSyncEffect": true,
+    "alertError": true,
+    "alertInfo": true,
+    "alertSuccess": true,
+    "alertWarning": true,
+    "cancelInterceptor": true,
+    "confirmError": true,
+    "confirmInfo": true,
+    "confirmSuccess": true,
+    "confirmWarning": true,
+    "generateKey": true,
+    "modalError": true,
+    "modalInfo": true,
+    "modalSuccess": true,
+    "modalWarning": true,
+    "removeAllPending": true,
+    "request": true,
+    "showMessageError": true,
+    "showMessageInfo": true,
+    "showMessageSuccess": true,
+    "showMessageWarning": true
   }
 }

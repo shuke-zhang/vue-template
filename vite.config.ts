@@ -42,7 +42,7 @@ export default defineConfig(({ mode }) => {
       AutoImport({
         imports: ['vue', 'vue-router', 'pinia'],
         dts: './types/auto-imports.d.ts', // 指定生成的自动导入声明文件的路径
-        dirs: ['./src/hooks'], // 告诉AutoImport插件在哪些目录中自动导入模块。插件会扫描这些目录中的文件，并根据文件内容自动生成导入语句。
+        dirs: ['./src/hooks', './src/utils'], // 告诉AutoImport插件在哪些目录中自动导入模块。插件会扫描这些目录中的文件，并根据文件内容自动生成导入语句。
         eslintrc: {
           enabled: true, // 生成 ESLint 配置，避免 import 报错
           filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`

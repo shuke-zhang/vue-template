@@ -15,6 +15,7 @@
     "eslintimport",
     "Parens",
     "Pinia",
+    "shuke",
     "tsbuildinfo",
     "unocss",
     "unplugin",

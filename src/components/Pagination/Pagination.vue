@@ -44,14 +44,14 @@ const emit = defineEmits(['update:page', 'update:limit', 'pagination']);
 
 const currentPage = computed({
   get: () => props.page,
-  set: val => {
+  set: (val) => {
     emit('update:page', val);
   },
 });
 
 const pageSize = computed({
   get: () => props.limit,
-  set: val => {
+  set: (val) => {
     emit('update:limit', val);
   },
 });
@@ -76,7 +76,7 @@ function handleCurrentChange(val: number) {
 
 <template>
   <div
-    :class="{ hidden: hidden }"
+    :class="{ hidden }"
     class="pagination-container flex justify-end"
   >
     <el-pagination
@@ -89,8 +89,7 @@ function handleCurrentChange(val: number) {
       :total="total"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-    >
-    </el-pagination>
+    />
   </div>
 </template>
 
