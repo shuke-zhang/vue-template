@@ -1,1 +1,55 @@
 @import "tailwindcss";
+
+@theme {
+    --color-primary: #087ea4;
+    --color-error: #ffce45;
+    --color-surfaceTint: #087ea4;
+    --color-onPrimary: #FFFFFF;
+    --color-primaryContainer: #D6E3FF;
+    --color-onPrimaryContainer: #001B3E;
+    --color-secondary: #565F71;
+    --color-onSecondary: #FFFFFF;
+    --color-secondaryContainer: #DAE2F9;
+    --color-onSecondaryContainer: #131C2B;
+    --color-tertiary: #705575;
+    --color-onTertiary: #FFFFFF;
+    --color-tertiaryContainer: #FAD8FD;
+    --color-onTertiaryContainer: #28132E;
+    --color-error: #BA1A1A;
+    --color-onError: #FFFFFF;
+    --color-errorContainer: #FFDAD6;
+    --color-onErrorContainer: #410002;
+    --color-background: #F9F9FF;
+    --color-onBackground: #191C20;
+    --color-surface: #F9F9FF;
+    --color-onSurface: #191C20;
+    --color-surfaceVariant: #E0E2EC;
+    --color-onSurfaceVariant: #44474E;
+    --color-outline: #74777F;
+    --color-outlineVariant: #C4C6D0;
+    --color-shadow: #000000;
+    --color-scrim: #000000;
+    --color-inverseSurface: #2E3036;
+    --color-inverseOnSurface: #F0F0F7;
+    --color-inversePrimary: #AAC7FF;
+    --color-primaryFixed: #D6E3FF;
+    --color-onPrimaryFixed: #001B3E;
+    --color-primaryFixedDim: #AAC7FF;
+    --color-onPrimaryFixedVariant: #284777;
+    --color-secondaryFixed: #DAE2F9;
+    --color-onSecondaryFixed: #131C2B;
+    --color-secondaryFixedDim: #BEC6DC;
+    --color-onSecondaryFixedVariant: #3E4759;
+    --color-tertiaryFixed: #FAD8FD;
+    --color-onTertiaryFixed: #28132E;
+    --color-tertiaryFixedDim: #DDBCE0;
+    --color-onTertiaryFixedVariant: #573E5C;
+    --color-surfaceDim: #D9D9E0;
+    --color-surfaceBright: #F9F9FF;
+    --color-surfaceContainerLowest: #FFFFFF;
+    --color-surfaceContainerLow: #F3F3FA;
+    --color-surfaceContainer: #EDEDF4;
+    --color-surfaceContainerHigh: #E7E8EE;
+    --color-surfaceContainerHighest: #E2E2E9;
+
+}

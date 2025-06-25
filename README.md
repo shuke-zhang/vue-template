@@ -353,7 +353,7 @@ import Icons from 'unplugin-icons/vite';
     'danger': (
       'base': #f56c6c,
       // 'base': #0b12cc,
-      // 危险色,,,,,
+      // 危险色,,,,,,,,,
     ),
     'test': (
       'base': #7eab91,
@@ -556,3 +556,8 @@ presets: [presetUno(), presetAttributify()];
    ```
 3. 新建 styles/tailwindcss.css 并加入 `@import "tailwindcss";` 同时在 main.ts 引入该文件 `import './styles/tailwindcss.css';`
 4. 除了 3 这种方法也可以直接在 main.ts 中直接引入 `import 'tailwindcss/index';`
+5. tailwindcss 交互式文档 ===> `https://tailwindcss.com/docs/accent-color`
+6. 自定义主题色 ===> `https://tailwindcss.com/docs/theme#overview`
+   > - 4+ 版本支持自定义主题色 ，不通过 config 配置，而是直接在上述创建的 tailwindcss.css 直接使用
+   > - 通过 **--color** 的方式来直接创建颜色比如 `--color-primary: #087ea4;` 或者` --color-primaryContainer: #D6E3FF;`
+   > - 通过 **--text** 的方式来创建字体自定义大小 `--text-small: 40px;`
