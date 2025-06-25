@@ -109,6 +109,11 @@
     "showMessageError": true,
     "showMessageInfo": true,
     "showMessageSuccess": true,
-    "showMessageWarning": true
+    "showMessageWarning": true,
+    "getCacheToken": true,
+    "removeCacheToken": true,
+    "setCacheToken": true,
+    "useCounterStore": true,
+    "useUserStore": true
   }
 }

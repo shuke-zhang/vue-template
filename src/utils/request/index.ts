@@ -12,6 +12,7 @@ const request = new HttpRequest<UserCustomConfig>(
     baseURL: import.meta.env.VITE_API_URL,
     timeout: 20 * 1000,
     withToken: true,
+    showErrorMsg: true,
     joinTime: true,
     ignoreRepeatRequest: false,
   },
@@ -58,13 +59,14 @@ const request = new HttpRequest<UserCustomConfig>(
       }
       const responseData = _response.data as ResponseResult<object>;
 
-      if (responseData.code === 0) {
+      if (responseData.code === 200) {
         // 请求成功
         return responseData as any;
       }
 
       if (responseData.code === 401) {
         // 返回登录页
+
       }
 
       const msg = responseData.msg || getSystemErrorMessage(responseData.code);
@@ -118,6 +120,8 @@ export function removeAllPending() {
       cancel('cancel all requests');
     }
   }
+  console.log('取消请求');
+
   cancelMap.clear();
 }
 
