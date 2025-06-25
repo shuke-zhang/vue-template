@@ -353,7 +353,7 @@ import Icons from 'unplugin-icons/vite';
     'danger': (
       'base': #f56c6c,
       // 'base': #0b12cc,
-      // 危险色,
+      // 危险色,,,,,
     ),
     'test': (
       'base': #7eab91,
@@ -546,3 +546,13 @@ presets: [presetUno(), presetAttributify()];
 ```
 
 6. UnoCSS 交互式文档 ===> https://unocss.dev/interactive/ 可搜索相关 css 直接使用
+
+# tailwind 配置
+
+1. 安装 `pnpm add -D tailwindcss @tailwindcss/vite`
+2. 在 vite 中添加以下代码 `import tailwindcss from '@tailwindcss/vite';`
+   ```ts
+   plugins: [tailwindcss()];
+   ```
+3. 新建 styles/tailwindcss.css 并加入 `@import "tailwindcss";` 同时在 main.ts 引入该文件 `import './styles/tailwindcss.css';`
+4. 除了 3 这种方法也可以直接在 main.ts 中直接引入 `import 'tailwindcss/index';`
