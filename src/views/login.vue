@@ -70,7 +70,7 @@ onMounted(() => {
               @keydown.enter="handleLogin"
             >
               <template #prefix>
-                <icon-font name="user" size="30" />
+                <icon-font name="user" size="16" />
               </template>
             </el-input>
           </el-form-item>
@@ -83,7 +83,7 @@ onMounted(() => {
               @keydown.enter="handleLogin"
             >
               <template #prefix>
-                <icon-font name="account-lock" size="30" />
+                <icon-font name="account-lock" size="16" />
               </template>
             </el-input>
           </el-form-item>
