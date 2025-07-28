@@ -1,9 +1,7 @@
-import type { ElMessageBoxOptions } from 'element-plus';
+import type { ElMessageBoxOptions } from 'element-plus'
 
-import { ElMessageBox } from 'element-plus';
-
-type ConfirmType = Required<ElMessageBoxOptions>['type'];
-type MessageOptionsSimple = Omit<ElMessageBoxOptions, 'type' | 'message' | 'title'>;
+type ConfirmType = Required<ElMessageBoxOptions>['type']
+type MessageOptionsSimple = Omit<ElMessageBoxOptions, 'type' | 'message' | 'title'>
 
 export function createBaseConfirm(type: ConfirmType, _options: MessageOptionsSimple = {}) {
   const defaultOptions: MessageOptionsSimple = {
@@ -14,7 +12,7 @@ export function createBaseConfirm(type: ConfirmType, _options: MessageOptionsSim
     closeOnHashChange: false,
     closeOnPressEscape: false,
     ..._options,
-  };
+  }
   return (message: string, title = '提示', options: MessageOptionsSimple = {}) => {
     return ElMessageBox({
       title,
@@ -22,6 +20,6 @@ export function createBaseConfirm(type: ConfirmType, _options: MessageOptionsSim
       type,
       ...defaultOptions,
       ...options,
-    });
-  };
+    })
+  }
 }

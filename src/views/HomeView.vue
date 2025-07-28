@@ -1,35 +1,41 @@
 <script setup lang="ts">
-import { getCodeImg } from '@/api/login';
-import router from '@/router';
-import { removeAllPending } from '@/utils/request';
+import { getCodeImg } from '@/api/login'
+import router from '@/router'
+import { removeAllPending } from '@/utils/request'
 
-const codeImg = ref<string>('');
-const codeUUid = ref<string>('');
-const loading = ref(false);
+const codeImg = ref<string>('')
+const codeUUid = ref<string>('')
+const loading = ref(false)
 
 function handleGetCodeImg() {
   return getCodeImg().then((res) => {
-    codeImg.value = res.img;
-    codeUUid.value = res.uuid;
-  });
+    codeImg.value = res.img
+    codeUUid.value = res.uuid
+  })
 }
 
 async function handleMultiRequest() {
-  const count = 10;
-  const interval = 300;
+  const count = 10
+  const interval = 300
 
   for (let i = 0; i < count; i++) {
     // 每次立即触发请求，不 await
-    getCodeImg(true);
+    getCodeImg(true)
 
     // 等待 200ms 再触发下一次
-    await new Promise(resolve => setTimeout(resolve, interval));
+    await new Promise(resolve => setTimeout(resolve, interval))
   }
 }
 
 function handleCancelRequests() {
-  removeAllPending();
+  removeAllPending()
 }
+
+function handleMsg() {
+  showMessageError('提示')
+}
+const size = 1
+const page = 10
 </script>
 
 <template>
@@ -49,6 +55,10 @@ function handleCancelRequests() {
       <el-button type="danger" @click="router.push('/login')">
         跳转到登录页
       </el-button>
+
+      <el-button type="primary" :loading="loading" @click="handleMsg">
+        测试信息提示
+      </el-button>
     </div>
     <!-- 右侧内容区，可展示验证码图片等 -->
     <div class="flex-1 flex items-center justify-center">
@@ -59,6 +69,11 @@ function handleCancelRequests() {
         </div>
       </div>
     </div>
+    <Pagination
+      v-model:page="size"
+      v-model:limit="page"
+      :total="500"
+    />
   </div>
 </template>
 

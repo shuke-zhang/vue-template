@@ -188,7 +188,7 @@ https://eslint.org/docs/latest/use/configure/language-options#using-configuratio
 2.  配置文件中直接写入以下代码即可完成配置 ， 本配置方便快捷更合适使用
 
 ```js
-import antfu from '@antfu/eslint-config';
+import antfu from '@antfu/eslint-config'
 
 export default antfu({
   formatters: {
@@ -211,7 +211,7 @@ export default antfu({
     // 确保与 Prettier 的分号设置一致
     '@stylistic/semi': ['error', 'always'],
   },
-});
+})
 ```
 
 # UI 组件库引入
@@ -228,9 +228,9 @@ https://element-plus.org/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC
 2. vite 配置文件中添加以下代码
 
 ```js
-import AutoImport from 'unplugin-auto-import/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import Components from 'unplugin-vue-components/vite';
+import AutoImport from 'unplugin-auto-import/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
 
 export default defineConfig({
   // ...
@@ -245,7 +245,7 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
   ],
-});
+})
 ```
 
 3. 此时如果使用 ElMessageBox 等组件会出现 TS 报错 `找不到名称“ElMessageBox”。ts-plugin`
@@ -320,21 +320,18 @@ import Icons from 'unplugin-icons/vite';
 
 ### 三、国际化
 
-1. main.ts 中添加以下代码 ` import ElementPlus from 'element-plus'; import zhCn from 'element-plus/es/locale/lang/zh-cn';` 和 `app.use(ElementPlus, {locale: zhCn, // 设置中文语言})`
+1. 按需引入方式 在 app.vue 中添加下述代码即可 ===> https://element-plus.org/zh-CN/guide/i18n.html#configprovider
 
-   > 会报错 Unable to resolve path to module 'element-plus/es/locale/lang/zh-cn'.eslintimport/no-unresolved
-   > 并且 main.ts 中第一行会有多项 eslint 报错，其主要是识别不到 element-plus 的配置文件，解决方法如下
+   ```vue
+   <script setup lang="ts">
+   import zhCn from 'element-plus/es/locale/lang/zh-cn'
+   </script>
 
-   ```js
-    'import/resolver': {
-        alias: {
-          map: [
-            // 这里参照别名配置映射
-            ['element-plus', './node_modules/element-plus'],
-          ],
-
-        },
-      },
+   <template>
+     <el-config-provider :locale="zhCn">
+       <RouterView />
+     </el-config-provider>
+   </template>
    ```
 
 ### 四、自定义主题
@@ -353,7 +350,7 @@ import Icons from 'unplugin-icons/vite';
     'danger': (
       'base': #f56c6c,
       // 'base': #0b12cc,
-      // 危险色,,,,,,,,,,,,,,,,,,,,,,,,,,
+      // 危险色,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
     ),
     'test': (
       'base': #7eab91,
@@ -399,11 +396,11 @@ import Icons from 'unplugin-icons/vite';
 AutoImport({
   imports: ['vue', 'vue-router', 'pinia'],
   dirs: ['./src/hooks'], // 告诉AutoImport插件在哪些目录中自动导入模块。插件会扫描这些目录中的文件，并根据文件内容自动生成导入语句。
-});
+})
 
 Components({
   dirs: ['./src/components'], // 用于src/components目录下的所有组件都会被自动导入。
-});
+})
 ```
 
 ### 二、server、build 配置
@@ -442,12 +439,12 @@ Components({
 
    ```js
    // . env.development
-   VITE_API_URL = 'http://192.168.4.209:88'; // 开发环境的 API 地址
+   VITE_API_URL = 'http://192.168.4.209:88' // 开发环境的 API 地址
    ```
 
    ```js
    // .env.production
-   VITE_API_URL = 'https://vue.ruoyi.vip'; // 生产环境的 API 地址
+   VITE_API_URL = 'https://vue.ruoyi.vip' // 生产环境的 API 地址
    ```
 
 #### 定义全局变量
@@ -484,19 +481,19 @@ declare const __API_URL__: string;
 4. 全部代码
 
 ```ts
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath } from 'node:url'
 
 import {
   configDefaults,
   ConfigEnv,
   defineConfig,
   mergeConfig,
-} from 'vitest/config';
+} from 'vitest/config'
 
-import viteConfig from './vite.config';
+import viteConfig from './vite.config'
 // 假设你需要加载当前的环境变量（你可以根据需要调整）
-const mode = process.env.NODE_ENV || 'development';
-const viteConfigResult = viteConfig({ mode } as ConfigEnv);
+const mode = process.env.NODE_ENV || 'development'
+const viteConfigResult = viteConfig({ mode } as ConfigEnv)
 export default mergeConfig(
   viteConfigResult,
   defineConfig({
@@ -506,7 +503,7 @@ export default mergeConfig(
       root: fileURLToPath(new URL('./', import.meta.url)),
     },
   })
-);
+)
 ```
 
 # UnoCSS 配置
@@ -517,22 +514,22 @@ https://unocss.nodejs.cn/
 2. 引入安装插件
 
 ```js
-import UnoCSS from 'unocss/vite';
-import { defineConfig } from 'vite';
+import UnoCSS from 'unocss/vite'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [UnoCSS()],
-});
+})
 ```
 
 3. 创建 uno.config.ts 文件
 
 ```js
-import { defineConfig } from 'unocss';
+import { defineConfig } from 'unocss'
 
 export default defineConfig({
   // ...UnoCSS options
-});
+})
 ```
 
 4. 在 main.ts 中引入 css `import 'virtual:uno.css'`
@@ -541,8 +538,8 @@ export default defineConfig({
 5. 在 uno.config.ts 中添加以下代码 完成预设配置
 
 ```ts
-import { presetAttributify, presetUno } from 'unocss';
-presets: [presetUno(), presetAttributify()];
+import { presetAttributify, presetUno } from 'unocss'
+presets: [presetUno(), presetAttributify()]
 ```
 
 6. UnoCSS 交互式文档 ===> https://unocss.dev/interactive/ 可搜索相关 css 直接使用
@@ -554,7 +551,7 @@ presets: [presetUno(), presetAttributify()];
 1. 安装 `pnpm add -D tailwindcss @tailwindcss/vite`
 2. 在 vite 中添加以下代码 `import tailwindcss from '@tailwindcss/vite';`
    ```ts
-   plugins: [tailwindcss()];
+   plugins: [tailwindcss()]
    ```
 3. 新建 styles/tailwindcss.css 并加入 `@import "tailwindcss";` 同时在 main.ts 引入该文件 `import './styles/tailwindcss.css';`
 4. 除了 3 这种方法也可以直接在 main.ts 中直接引入 `import 'tailwindcss/index';`

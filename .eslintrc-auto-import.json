@@ -114,6 +114,7 @@
     "removeCacheToken": true,
     "setCacheToken": true,
     "useCounterStore": true,
-    "useUserStore": true
+    "useUserStore": true,
+    "ElNotification": true
   }
 }
