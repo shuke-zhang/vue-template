@@ -4,18 +4,11 @@ const props = defineProps({
     required: true,
     type: Number,
   },
-  page: {
-    type: Number,
-    default: 1,
-  },
-  limit: {
-    type: Number,
-    default: 20,
-  },
+
   pageSizes: {
     type: Array,
     default() {
-      return [10, 20, 30, 50];
+      return [10, 20, 30, 50]
     },
   },
   // 移动端页码按钮的数量端默认值5
@@ -39,37 +32,33 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-});
-const emit = defineEmits(['update:page', 'update:limit', 'pagination']);
+})
+const emit = defineEmits(['update:page', 'update:limit', 'pagination'])
 
-const currentPage = computed({
-  get: () => props.page,
-  set: (val) => {
-    emit('update:page', val);
-  },
-});
+const currentPage = defineModel('pageNum', {
+  type: Number,
+  default: 1,
+})
 
-const pageSize = computed({
-  get: () => props.limit,
-  set: (val) => {
-    emit('update:limit', val);
-  },
-});
+const pageSize = defineModel('pageSize', {
+  type: Number,
+  default: 20,
+})
 
 function handleSizeChange(val: number) {
   if (currentPage.value * val > props.total) {
-    currentPage.value = 1;
+    currentPage.value = 1
   }
-  emit('pagination', { page: currentPage, limit: val });
+  emit('pagination', { page: currentPage, limit: val })
   if (props.autoScroll) {
-    scrollTo(0, 800);
+    scrollTo(0, 800)
   }
 }
 
 function handleCurrentChange(val: number) {
-  emit('pagination', { page: val, limit: pageSize.value });
+  emit('pagination', { page: val, limit: pageSize.value })
   if (props.autoScroll) {
-    scrollTo(0, 800);
+    scrollTo(0, 800)
   }
 }
 </script>

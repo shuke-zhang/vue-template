@@ -34,8 +34,8 @@ function handleCancelRequests() {
 function handleMsg() {
   showMessageError('提示')
 }
-const size = 1
-const page = 10
+const size = ref(1)
+const page = ref(10)
 </script>
 
 <template>
@@ -70,8 +70,8 @@ const page = 10
       </div>
     </div>
     <Pagination
-      v-model:page="size"
-      v-model:limit="page"
+      v-model:page-size="size"
+      v-model:page-num="page"
       :total="500"
     />
   </div>
