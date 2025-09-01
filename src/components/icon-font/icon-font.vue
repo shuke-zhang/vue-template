@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { IconFontType } from './iconfont';
-import { computed } from 'vue';
+import type { IconFontType } from './iconfont'
+import { computed } from 'vue'
 
 /**
  * - 使用示例 <icon-font name="a-lujing1" size="43" color="#7c91fc" />
@@ -23,22 +23,22 @@ const props = defineProps({
     type: String,
     default: '16',
   },
-});
+})
 
-const iconName = computed(() => `#icon-${props.name}`);
+const iconName = computed(() => `#icon-${props.name}`)
 const svgClass = computed(() => {
   if (props.className) {
-    return `icon-font ${props.className}`;
+    return `icon-font ${props.className}`
   }
-  return 'icon-font';
-});
+  return 'icon-font'
+})
 
-const iconSize = computed(() => `${props.size || 16}px`);
+const iconSize = computed(() => `${props.size || 16}px`)
 
 // 计算最终的颜色：如果没有传入颜色，则返回 'currentColor'
 const iconFillColor = computed(() => {
-  return props.color || 'currentColor';
-});
+  return props.color || 'currentColor'
+})
 </script>
 
 <template>
