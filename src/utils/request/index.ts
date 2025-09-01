@@ -9,7 +9,7 @@ const cancelMap = new Map<string, Canceler>()
 
 const request = new HttpRequest<UserCustomConfig>(
   {
-    baseURL: 'https://gateway.test.95516.com',
+    baseURL: import.meta.env.VITE_API_URL,
     timeout: 20 * 1000,
     withToken: true,
     showErrorMsg: true,

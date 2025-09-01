@@ -9,7 +9,7 @@ const loading = ref(false)
 
 function handleGetCodeImg() {
   return getCodeImg().then((res) => {
-    codeImg.value = res.img
+    codeImg.value = `data:image/png;base64,${res.img}`
     codeUUid.value = res.uuid
   })
 }
