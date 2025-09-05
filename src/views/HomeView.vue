@@ -59,6 +59,10 @@ const page = ref(10)
       <el-button type="primary" :loading="loading" @click="handleMsg">
         测试信息提示
       </el-button>
+
+      <el-button type="primary" :loading="loading" @click="router.push('/doubao')">
+        跳转豆包
+      </el-button>
     </div>
     <!-- 右侧内容区，可展示验证码图片等 -->
     <div class="flex-1 flex items-center justify-center">

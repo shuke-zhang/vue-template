@@ -115,6 +115,10 @@
     "setCacheToken": true,
     "useCounterStore": true,
     "useUserStore": true,
-    "ElNotification": true
+    "ElNotification": true,
+    "createUUID": true,
+    "EventEmitter": true,
+    "debounce": true,
+    "throttle": true
   }
 }

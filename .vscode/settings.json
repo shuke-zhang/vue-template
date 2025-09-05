@@ -12,14 +12,19 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "cSpell.words": [
     "Attributify",
+    "bytedance",
+    "doubao",
     "eslintimport",
+    "openspeech",
     "Parens",
     "Pinia",
     "shuke",
     "tsbuildinfo",
     "unocss",
     "unplugin",
+    "VHNS",
     "Vite",
+    "volc",
     "vue'eslintimport"
   ]
 }

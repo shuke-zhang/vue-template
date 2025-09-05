@@ -10,6 +10,7 @@ declare global {
   const ElMessage: typeof import('element-plus/es')['ElMessage']
   const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
   const ElNotification: typeof import('element-plus/es')['ElNotification']
+  const EventEmitter: typeof import('../src/utils/helpers/EventEmitter')['EventEmitter']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const alertError: typeof import('../src/utils/ui/index')['alertError']
   const alertInfo: typeof import('../src/utils/ui/index')['alertInfo']
@@ -23,7 +24,9 @@ declare global {
   const confirmWarning: typeof import('../src/utils/ui/index')['confirmWarning']
   const createApp: typeof import('vue')['createApp']
   const createPinia: typeof import('pinia')['createPinia']
+  const createUUID: typeof import('../src/utils/helpers/createUUID')['createUUID']
   const customRef: typeof import('vue')['customRef']
+  const debounce: typeof import('../src/utils/helpers/debounce-throttle')['debounce']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
   const defineStore: typeof import('pinia')['defineStore']
@@ -85,6 +88,7 @@ declare global {
   const showMessageSuccess: typeof import('../src/utils/ui/index')['showMessageSuccess']
   const showMessageWarning: typeof import('../src/utils/ui/index')['showMessageWarning']
   const storeToRefs: typeof import('pinia')['storeToRefs']
+  const throttle: typeof import('../src/utils/helpers/debounce-throttle')['throttle']
   const toRaw: typeof import('vue')['toRaw']
   const toRef: typeof import('vue')['toRef']
   const toRefs: typeof import('vue')['toRefs']
@@ -113,4 +117,7 @@ declare global {
   // @ts-ignore
   export type { Component, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
+  // @ts-ignore
+  export type { EventEmitter } from '../src/utils/helpers/EventEmitter'
+  import('../src/utils/helpers/EventEmitter')
 }
