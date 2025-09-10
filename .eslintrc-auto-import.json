@@ -119,6 +119,7 @@
     "createUUID": true,
     "EventEmitter": true,
     "debounce": true,
-    "throttle": true
+    "throttle": true,
+    "ElLoading": true
   }
 }
