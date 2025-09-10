@@ -1,21 +1,21 @@
-import { fileURLToPath, URL } from 'node:url';
+import { fileURLToPath, URL } from 'node:url'
 
-import tailwindcss from '@tailwindcss/vite';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-import AutoImport from 'unplugin-auto-import/vite';
+import tailwindcss from '@tailwindcss/vite'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import AutoImport from 'unplugin-auto-import/vite'
 
-import IconsResolver from 'unplugin-icons/resolver';
-import Icons from 'unplugin-icons/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import Components from 'unplugin-vue-components/vite';
-import { defineConfig, loadEnv } from 'vite';
-import vueDevTools from 'vite-plugin-vue-devtools';
-import { generatedIcons } from './script/iconfont';
+import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig, loadEnv } from 'vite'
+import vueDevTools from 'vite-plugin-vue-devtools'
+import { generatedIcons } from './script/iconfont'
 // https://vite.dev/config/
 export default defineConfig(({ command, mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
-  const isBuild = command === 'build';
+  const env = loadEnv(mode, process.cwd(), '')
+  const isBuild = command === 'build'
 
   return {
     define: {
@@ -27,12 +27,14 @@ export default defineConfig(({ command, mode }) => {
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
+        'sass': 'sass-embedded',
       },
     },
     css: {
       preprocessorOptions: {
         scss: {
           additionalData: `@use "@/styles/global.scss" as global; @use "@/styles/element/index.scss" as *;`,
+          api: 'modern-compiler',
         },
       },
     },
@@ -87,5 +89,5 @@ export default defineConfig(({ command, mode }) => {
         external: ['fs'], // 确保不打包 Node.js 模块
       },
     },
-  };
-});
+  }
+})
