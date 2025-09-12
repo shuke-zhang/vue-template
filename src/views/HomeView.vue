@@ -6,7 +6,7 @@ import { removeAllPending } from '@/utils/request'
 const codeImg = ref<string>('')
 const codeUUid = ref<string>('')
 const loading = ref(false)
-
+const inputValue = ref('sys_sss')
 function handleGetCodeImg() {
   return getCodeImg().then((res) => {
     codeImg.value = `data:image/png;base64,${res.img}`
@@ -65,7 +65,7 @@ const page = ref(10)
       </el-button>
     </div>
     <!-- 右侧内容区，可展示验证码图片等 -->
-    <div class="flex-1 flex items-center justify-center">
+    <div class="flex-1 flex flex-col items-center justify-center">
       <div v-if="codeImg">
         <img :src="codeImg" alt="验证码">
         <div class="mt-2 text-center text-gray-500 text-xs">
@@ -73,6 +73,11 @@ const page = ref(10)
         </div>
       </div>
     </div>
+
+    <div>
+      <el-input v-model="inputValue" placeholder="请输入内容" />
+    </div>
+
     <Pagination
       v-model:page-size="size"
       v-model:page-num="page"
