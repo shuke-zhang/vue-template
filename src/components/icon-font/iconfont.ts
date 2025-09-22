@@ -1,34 +1,19 @@
 // generated
 export type IconFontType = 'account-code' |
 'account-lock' |
-'account-phone' |
 'account-user' |
-'camera' |
-'clear' |
 'close' |
-'close1' |
-'copy' |
-'deepseek' |
-'doubao' |
+'delete' |
 'edit' |
-'fasong' |
-'gongwei-gengxin' |
+'expand' |
 'jump' |
-'keyboard' |
 'left' |
-'loop' |
-'mute' |
-'play' |
 'plus' |
-'questions' |
-'qwen' |
-'record' |
-'recorder' |
+'recorder-fill' |
 'right' |
 'search' |
 'setting' |
 'setup' |
-'sound' |
-'time' |
-'user' |
-'zhipu';
+'share-light-2' |
+'shrink' |
+'user';

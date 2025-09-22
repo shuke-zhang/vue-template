@@ -10,112 +10,36 @@
   text-align: center;
 }
 
-.icon-setup:before {
-  content: "\e656";
+.icon-user:before {
+  content: "\e6c0";
 }
 
-.icon-setting:before {
-  content: "\e699";
-}
-
-.icon-gongwei-gengxin:before {
-  content: "\e6dc";
-}
-
-.icon-clear:before {
-  content: "\e618";
-}
-
-.icon-mute:before {
-  content: "\ea0c";
-}
-
-.icon-copy:before {
-  content: "\ea32";
-}
-
-.icon-recorder:before {
-  content: "\e610";
-}
-
-.icon-keyboard:before {
-  content: "\e6d8";
-}
-
-.icon-sound:before {
-  content: "\e64c";
-}
-
-.icon-time:before {
-  content: "\e61e";
-}
-
-.icon-record:before {
-  content: "\e62d";
-}
-
-.icon-play:before {
-  content: "\e87c";
-}
-
-.icon-camera:before {
-  content: "\e667";
-}
-
-.icon-questions:before {
-  content: "\e600";
-}
-
-.icon-jump:before {
-  content: "\e74d";
+.icon-recorder-fill:before {
+  content: "\e6e1";
 }
 
 .icon-account-code:before {
   content: "\e636";
 }
 
+.icon-expand:before {
+  content: "\e632";
+}
+
+.icon-shrink:before {
+  content: "\e60a";
+}
+
 .icon-account-user:before {
   content: "\e611";
 }
 
-.icon-account-phone:before {
-  content: "\e6cd";
+.icon-jump:before {
+  content: "\e74d";
 }
 
-.icon-account-lock:before {
-  content: "\e6cc";
-}
-
-.icon-fasong:before {
-  content: "\100bd";
-}
-
-.icon-zhipu:before {
-  content: "\e60c";
-}
-
-.icon-qwen:before {
-  content: "\e602";
-}
-
-.icon-deepseek:before {
-  content: "\e641";
-}
-
-.icon-doubao:before {
-  content: "\e7e0";
-}
-
-.icon-user:before {
-  content: "\e6c0";
-}
-
-.icon-close:before {
-  content: "\e609";
-}
-
-.icon-loop:before {
-  content: "\e66d";
+.icon-setup:before {
+  content: "\e656";
 }
 
 .icon-plus:before {
@@ -130,7 +54,7 @@
   content: "\e62a";
 }
 
-.icon-close1:before {
+.icon-close:before {
   content: "\e630";
 }
 
@@ -138,6 +62,22 @@
   content: "\e631";
 }
 
+.icon-share-light-2:before {
+  content: "\e638";
+}
+
+.icon-delete:before {
+  content: "\e684";
+}
+
 .icon-edit:before {
   content: "\e685";
+}
+
+.icon-setting:before {
+  content: "\e699";
+}
+
+.icon-account-lock:before {
+  content: "\e6cc";
 }

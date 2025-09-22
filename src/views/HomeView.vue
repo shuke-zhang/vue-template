@@ -63,6 +63,10 @@ const page = ref(10)
       <el-button type="primary" :loading="loading" @click="router.push('/doubao')">
         跳转豆包
       </el-button>
+
+      <icon-font name="close" color="#b3b3b7" />
+      <icon-font name="expand" size="64" color="red" />
+      <icon-font name="close" color="red" />
     </div>
     <!-- 右侧内容区，可展示验证码图片等 -->
     <div class="flex-1 flex flex-col items-center justify-center">

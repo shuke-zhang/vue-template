@@ -5,6 +5,7 @@ import { computed } from 'vue'
 /**
  * - 使用示例 <icon-font name="a-lujing1" size="43" color="#7c91fc" />
  * - 注意 ， 使用阿里巴巴图标库中项目设置里面请务必勾选上 WOFF2、WOFF、TTF 暂未测试是否对字体图标有影响
+ * @warn 如果传入的额颜色不生效请 到项目中 批量操作-选中-批量去色即可
  */
 const props = defineProps({
   name: {
