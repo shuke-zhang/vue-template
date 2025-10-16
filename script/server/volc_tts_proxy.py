@@ -8,8 +8,8 @@ from aiohttp import web, ClientSession, TCPConnector
 
 # ===== 固定配置（不改动）=====
 VOLC_ENDPOINT = "wss://openspeech.bytedance.com/api/v3/tts/bidirection"
-APPID = "9599229752"
-ACCESS_TOKEN = "m2PLropkFXJkgDJpxfT68GZiO0xy8ERE"
+APPID = "3810425215"
+ACCESS_TOKEN = "mHT8sdy_o3wVHNSIw9jfJqCawEu0Aq5s"
 RESOURCE_ID = "volc.service_type.10029"
 LOCAL_PORT = 8787
 # ===========================
@@ -107,7 +107,7 @@ async def _connect_upstream(session: ClientSession):
     log.info("Upstream connected")
     return ws_up
 
-async def _tts_stream(ws_down, text: str, speaker: str, fmt: str, sr: int):
+async def _tts_stream(ws_down, text: str, speaker: str, emotion:str,emotionScale:int, fmt: str, sr: int):
     # 连接上游
     async with ClientSession(trust_env=False, connector=TCPConnector(ssl=None)) as session:
         ws_up = await _connect_upstream(session)
@@ -122,11 +122,18 @@ async def _tts_stream(ws_down, text: str, speaker: str, fmt: str, sr: int):
             "user": {"uid": str(uuid.uuid4())},
             "req_params": {
                 "speaker": speaker,
-                "audio_params": {"format": fmt, "sample_rate": sr, "enable_timestamp": True},
+                "audio_params": {
+                    "format": fmt, 
+                    "sample_rate": sr, 
+                    "enable_timestamp": True,
+                    "emotion": emotion,
+                    "emotion_scale": emotionScale
+                    },
                 "additions": json.dumps({"disable_markdown_filter": False}, ensure_ascii=False),
             },
             "event": EventType.StartSession,
         }
+        print('req_template',req_template)
         await ws_up.send_bytes(_marshal(
             MsgType.FullClientRequest, MsgFlag.WithEvent,
             json.dumps(req_template, ensure_ascii=False).encode("utf-8"),
@@ -236,12 +243,14 @@ async def tts_handler(request: web.Request):
     text = (_params or {}).get("text") or "你好，欢迎使用火山引擎语音合成服务"
     speaker = (_params or {}).get("speaker") or "zh_male_yangguangqingnian_moon_bigtts"
     ap = (_params or {}).get("audio_params") or {}
+    emotion = ap.get("emotion") or ""
+    emotionScale = ap.get("emotion_scale") or 0.5
     fmt = "wav" if ap.get("format") == "wav" else "mp3"
     sr = int(ap.get("sample_rate") or 24000)
     log.info("TTS params: len=%d speaker=%s fmt=%s sr=%d", len(text), speaker, fmt, sr)
 
     try:
-        await _tts_stream(ws_down, text, speaker, fmt, sr)
+        await _tts_stream(ws_down, text, speaker,emotion,emotionScale, fmt, sr)
     except Exception as _e:
         log.exception("TTS stream error: %s", _e)
     finally:

@@ -2721,3 +2721,210 @@ export const speakerList = [
     mix: true,
   },
 ]
+
+export type EmotionValue = | 'happy'
+  | 'sad'
+  | 'angry'
+  | 'surprised'
+  | 'fear'
+  | 'hate'
+  | 'excited'
+  | 'coldness'
+  | 'neutral'
+  | 'depressed'
+  | 'lovey_dovey'
+  | 'shy'
+  | 'comfort'
+  | 'tension'
+  | 'tender'
+  | 'storytelling'
+  | 'radio'
+  | 'magnetic'
+  | 'advertising'
+  | 'vocal_fry'
+  | 'asmr'
+  | 'news'
+  | 'entertainment'
+  | 'dialect'
+  // 英文集常见分类
+  | 'chat'
+  | 'warm'
+  | 'affectionate'
+  | 'authoritative'
+  // 兜底（很少用到，防止新情感/拼写导致类型错误）
+  | `custom_${string}`
+
+export interface EmotionOption {
+  label: string
+  value: EmotionValue
+}
+
+export interface Speaker {
+  label: string
+  value: string // 语音模型ID
+  languages: string[] // ['中文'] / ['美式英语'] / ...
+  emotions: string[] | EmotionOption[]
+  business: string[] // 上线业务方
+  mix: boolean // 是否支持MIX
+}
+
+// 升级后的强类型
+export type UpgradedSpeaker = Omit<Speaker, 'emotions'> & {
+  emotions: EmotionOption[]
+}
+
+// —— 情感映射（中文/英文/常见别名统一收敛到 EmotionValue）——
+const zhEmotionMap: Record<string, EmotionValue> = {
+  '开心': 'happy',
+  '悲伤': 'sad',
+  '生气': 'angry',
+  '愤怒': 'angry',
+  '惊讶': 'surprised',
+  '恐惧': 'fear',
+  '厌恶': 'hate',
+  '激动': 'excited',
+  '冷漠': 'coldness',
+  '中性': 'neutral',
+  '沮丧': 'depressed',
+  '撒娇': 'lovey_dovey',
+  '害羞': 'shy',
+  '安慰鼓励': 'comfort',
+  '咆哮': 'tension',
+  '咆哮/焦急': 'tension',
+  '焦急': 'tension',
+  '温柔': 'tender',
+  '讲故事': 'storytelling',
+  '自然讲述': 'storytelling',
+  '讲故事 / 自然讲述': 'storytelling',
+  '情感电台': 'radio',
+  '磁性': 'magnetic',
+  '广告营销': 'advertising',
+  '气泡音': 'vocal_fry',
+  '低语': 'asmr',
+  '低语 (ASMR)': 'asmr',
+  '低语（ASMR）': 'asmr',
+  'ASMR': 'asmr',
+  '新闻播报': 'news',
+  '娱乐八卦': 'entertainment',
+  '方言': 'dialect',
+
+  // 英文字段在中文表述时的常见翻译
+  '愉悦': 'happy',
+  '对话': 'chat',
+  '闲聊': 'chat',
+  '温暖': 'warm',
+  '深情': 'affectionate',
+  '权威': 'authoritative',
+}
+
+const enEmotionMap: Record<string, EmotionValue> = {
+  // 英文集合（通常 UI 展示中文，这里兼容中文到英文集合值）
+  '中性': 'neutral',
+  '愉悦': 'happy',
+  '生气': 'angry',
+  '愤怒': 'angry',
+  '悲伤': 'sad',
+  '兴奋': 'excited',
+  '对话': 'chat',
+  '闲聊': 'chat',
+  '低语': 'asmr',
+  '低语 (ASMR)': 'asmr',
+  '低语（ASMR）': 'asmr',
+  'ASMR': 'asmr',
+  '温暖': 'warm',
+  '深情': 'affectionate',
+  '权威': 'authoritative',
+  // 复用中文映射，做最大兼容
+  ...zhEmotionMap,
+}
+
+// —— 工具函数 ——
+
+// 判断是否“英文系”音色（用于选择映射表）
+function isEnglishSpeaker(item: Speaker): boolean {
+  const langHit
+    = Array.isArray(item.languages) && item.languages.some(l => /英语/.test(l))
+  const idHit = item.value.startsWith('en_')
+  return langHit || idHit
+}
+
+// 将任意文本安全转换为 custom key（兜底）
+function toSafeCustomKey(s: string): EmotionValue {
+  const base = String(s || '')
+    .toLowerCase()
+    .replace(/[（）()]/g, '')
+    .replace(/\s+/g, '_')
+    .replace(/\W+/g, '_')
+    .replace(/^_+|_+$/g, '')
+  return (`custom_${base || 'unknown'}`) as EmotionValue
+}
+
+// 去重（按 value 去重，保留首个 label）
+function dedupeEmotions(arr: EmotionOption[]): EmotionOption[] {
+  const seen = new Set<string>()
+  const res: EmotionOption[] = []
+  for (const e of arr) {
+    if (!seen.has(e.value)) {
+      seen.add(e.value)
+      res.push(e)
+    }
+  }
+  return res
+}
+
+// 把单个 speaker 的 emotions 升级成 {label,value}[]
+export function normalizeSpeakerEmotions(sp: Speaker): EmotionOption[] {
+  const dict = isEnglishSpeaker(sp) ? enEmotionMap : zhEmotionMap
+  const raw = Array.isArray(sp.emotions) ? sp.emotions : []
+  const out: EmotionOption[] = []
+
+  for (const item of raw) {
+    // 已经是 {label,value}
+    if (typeof item === 'object' && item !== null && 'label' in item && 'value' in item) {
+      const eo = item as EmotionOption
+      // 校验 value 是否是联合类型之一，否则兜底 custom
+      const safeValue = (Object.values<string>(dict).includes(eo.value) ? eo.value : toSafeCustomKey(eo.value)) as EmotionValue
+      out.push({ label: eo.label, value: safeValue })
+      continue
+    }
+
+    // string -> EmotionOption
+    const label = String(item ?? '').trim()
+    if (!label)
+      continue
+
+    const mapped = dict[label]
+    const value: EmotionValue = mapped ?? toSafeCustomKey(label)
+    out.push({ label, value })
+  }
+
+  return dedupeEmotions(out)
+}
+
+// 纯函数：返回“升级后的副本”，不改原数组
+export function upgradeSpeakerList(list: Speaker[]): UpgradedSpeaker[] {
+  return list.map(sp => ({
+    ...sp,
+    emotions: normalizeSpeakerEmotions(sp),
+  }))
+}
+
+// 原地升级 + 类型断言：调用后在本作用域把 list 视作 UpgradedSpeaker[]
+export function upgradeSpeakerListInPlace(list: Speaker[]): asserts list is UpgradedSpeaker[] {
+  for (let i = 0; i < list.length; i++) {
+    (list[i] as any).emotions = normalizeSpeakerEmotions(list[i])
+  }
+}
+
+/* ============= 使用示例（在你的 speakerList 定义之后调用一次）=============
+
+import { speakerList } from '@/constants/speakers'; // 你的原始大数组（emotions 还是 string[]）
+import { upgradeSpeakerListInPlace } from '@/utils/upgradeSpeakers';
+
+// 原地升级（推荐）
+upgradeSpeakerListInPlace(speakerList);
+
+// 现在 speakerList 的类型在本文件里就能当作 UpgradedSpeaker[] 使用：
+// speakerList[0].emotions: EmotionOption[] -> {label,value}
+
+================================================================== */

@@ -1,10 +1,22 @@
 <script setup lang="ts">
 import { ElMessage } from 'element-plus'
-import { speakerList } from './voices_label_value_plus'
-
+import { speakerList, upgradeSpeakerListInPlace } from './voices_label_value_plus'
+// 路径按你项目调整
+upgradeSpeakerListInPlace(speakerList)
+interface EmotionOption { label: string, value: string }
+interface SpeakerOption {
+  label: string
+  value: string
+  languages: string[]
+  emotions: EmotionOption[]
+  business: string[]
+  mix: boolean
+}
 const wsUrl = ref('ws://localhost:8787/tts')
 const text = ref('唧唧复唧唧，木兰当户织。不闻机杼声，唯闻女叹息。问女何所思，问女何所忆。女亦无所思，女亦无所忆。昨夜见军帖，可汗大点兵。军书十二卷，卷卷有爷名。阿爷无大儿，木兰无长兄。愿为市鞍马，从此替爷征。')
-const speaker = ref('zh_female_tianmeitaozi_mars_bigtts')
+const speaker = ref('zh_female_tianxinxiaomei_emo_v2_mars_bigtts')
+const emotion = ref<string>('')
+const emotionScale = ref<number>(4)
 const audioFormat = ref<'mp3' | 'wav'>('mp3')
 const sampleRate = ref<number>(24000)
 
@@ -30,7 +42,12 @@ const chunksCount = ref(0)
 const totalBytes = ref(0)
 const running = ref(false)
 const canDownload = computed(() => !running.value && _allChunks.length > 0)
-
+// 当前选中音色完整对象
+const current = computed<SpeakerOption | undefined>(() =>
+  (speakerList as unknown as SpeakerOption[]).find(s => s.value === speaker.value),
+)
+// 根据选中音色，联动情感下拉
+const emotionOptions = computed<EmotionOption[]>(() => current.value?.emotions ?? [])
 function human(n: number) {
   if (n < 1024) {
     return `${n} B`
@@ -200,8 +217,15 @@ function start() {
           const payload = {
             text: text.value,
             speaker: speaker.value,
-            audio_params: { format: audioFormat.value, sample_rate: sampleRate.value },
+            audio_params: {
+              format: audioFormat.value,
+              sample_rate: sampleRate.value,
+              emotion: emotion.value,
+              emotion_scale: emotionScale.value,
+            },
           }
+          console.log('payload', payload)
+
           _ws?.send(JSON.stringify(payload))
         }
         return
@@ -285,10 +309,39 @@ onBeforeUnmount(() => {
         </el-form-item>
 
         <el-form-item label="音色">
-          <el-select v-model="speaker" style="width: 360px">
-            <el-option v-for="item in speakerList" :key="item.value" :label="item.label" :value="item.value" />
+          <el-select v-model="speaker" style="width: 360px" filterable clearable placeholder="选择音色">
+            <el-option
+              v-for="item in speakerList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
           </el-select>
         </el-form-item>
+
+        <!-- 选中音色后的补充信息（可选） -->
+        <div v-if="current">
+          <div class="text-xs" style="color:#909399;margin-bottom:6px">
+            语种：{{ current.languages.join(' / ') }}
+            <span v-if="current.mix"> · 支持MIX</span>
+            <span v-if="current.business.length"> · 业务方：{{ current.business.join(' / ') }}</span>
+          </div>
+
+          <el-form-item v-if="emotionOptions.length" label="情感">
+            <el-select v-model="emotion" style="width: 360px" clearable placeholder="可选情感（不选则默认）">
+              <el-option
+                v-for="e in emotionOptions"
+                :key="e.value"
+                :label="e.label"
+                :value="e.value"
+              />
+            </el-select>
+          </el-form-item>
+
+          <el-form-item v-if="emotionOptions.length" label="情感值">
+            <el-input-number v-model="emotionScale" :min="1" :max="5" />
+          </el-form-item>
+        </div>
 
         <el-form-item label="格式">
           <el-radio-group v-model="audioFormat">
