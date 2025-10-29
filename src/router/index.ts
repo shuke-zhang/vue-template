@@ -27,6 +27,15 @@ const router = createRouter({
         hidden: true,
       },
     },
+    {
+      path: '/logs',
+      name: 'Logs',
+      component: () => import('@/views/logs.vue'),
+      meta: {
+        title: '日志',
+        hidden: true,
+      },
+    },
 
   ],
 })

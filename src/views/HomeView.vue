@@ -64,6 +64,10 @@ const page = ref(10)
         跳转豆包
       </el-button>
 
+      <el-button type="primary" :loading="loading" @click="router.push('/logs')">
+        跳转日志
+      </el-button>
+
       <icon-font name="close" color="#b3b3b7" />
       <icon-font name="expand" size="64" color="red" />
       <icon-font name="close" color="red" />
