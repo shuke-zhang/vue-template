@@ -1,19 +1,13 @@
 // generated
-export type IconFontType = 'account-code' |
-'account-lock' |
-'account-user' |
-'close' |
-'delete' |
+export type IconFontType = 'close' |
+'close1' |
 'edit' |
-'expand' |
-'jump' |
 'left' |
+'lock' |
+'loop' |
+'menu-line' |
 'plus' |
-'recorder-fill' |
 'right' |
 'search' |
-'setting' |
-'setup' |
-'share-light-2' |
-'shrink' |
+'telphone' |
 'user';

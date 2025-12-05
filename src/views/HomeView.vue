@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { getCodeImg } from '@/api/login'
+import { getSerialize } from '@/api/serialize'
 import router from '@/router'
 import { removeAllPending } from '@/utils/request'
 
@@ -29,6 +30,16 @@ async function handleMultiRequest() {
 
 function handleCancelRequests() {
   removeAllPending()
+}
+
+function handleGetSerialize() {
+  return getSerialize([
+    1,
+    2,
+    3,
+  ]).then(() => {
+    console.log('操作成功')
+  })
 }
 
 function handleMsg() {
@@ -68,8 +79,13 @@ const page = ref(10)
         跳转日志
       </el-button>
 
+      <el-button type="primary" :loading="loading" @click="handleGetSerialize">
+        请求序列化
+      </el-button>
+
       <icon-font name="close" color="#b3b3b7" />
-      <icon-font name="expand" size="64" color="red" />
+      <icon-font name="loop" size="64" color="red" />
+      <icon-font name="loop" size="128" color="green" />
       <icon-font name="close" color="red" />
     </div>
     <!-- 右侧内容区，可展示验证码图片等 -->

@@ -259,7 +259,6 @@ export default defineConfig({
 
 4. 如果 eslint 规则配置为 `'no-undef': 'error',` 即使用 ElMessageBox 等组件报错 `ElMessageBox' is not defined.eslint(no-undef) `
    解决方法：
-
    - 在 vite.config 中 AutoImport 添加
 
    ```js
@@ -350,7 +349,7 @@ import Icons from 'unplugin-icons/vite';
     'danger': (
       'base': #f56c6c,
       // 'base': #0b12cc,
-      // 危险色,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+       // 危险色,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
     ),
     'test': (
       'base': #7eab91,
@@ -502,7 +501,7 @@ export default mergeConfig(
       exclude: [...configDefaults.exclude, 'e2e/**'],
       root: fileURLToPath(new URL('./', import.meta.url)),
     },
-  })
+  }),
 )
 ```
 
