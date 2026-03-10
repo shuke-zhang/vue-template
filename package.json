@@ -15,7 +15,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "@shuke~/logger": "1.2.7",
-    "@shuke~/request": "^0.0.3",
+    "@shuke~/request": "^0.0.4",
     "@types/ejs": "^3.1.5",
     "@types/qs": "^6.14.0",
     "@zd~/request": "^0.4.0",
@@ -43,6 +43,7 @@
     "eslint": "^9.31.0",
     "eslint-plugin-format": "^1.0.1",
     "jsdom": "^25.0.1",
+    "naive-ui": "^2.43.2",
     "npm-run-all2": "^7.0.2",
     "sass": "^1.92.1",
     "tailwindcss": "^4.1.11",
