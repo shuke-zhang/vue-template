@@ -30,6 +30,8 @@ declare module 'vue' {
     Pagination: typeof import('./../src/components/Pagination/Pagination.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    UploadFile: typeof import('./../src/components/uploadFile/uploadFile.vue')['default']
+    UploadFileV2: typeof import('./../src/components/uploadFile/UploadFileV2.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']
