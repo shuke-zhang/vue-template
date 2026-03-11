@@ -19,6 +19,7 @@ import type {
 import { Delete, Plus, ZoomIn } from '@element-plus/icons-vue'
 import axios from 'axios'
 import { dayjs, ElMessage, genFileId } from 'element-plus'
+import { computed, defineExpose, nextTick, ref, watch } from 'vue'
 
 type Awaitable<TValue> = Promise<TValue> | TValue
 
@@ -144,10 +145,58 @@ const emit = defineEmits<{
   (e: 'onRemove', payload: { uploadFile: UploadFile, uploadFiles: UploadFiles }): void
 }>()
 
+/**
+ * el-upload 内部展示层文件列表
+ *
+ * 作用：
+ * 1. 专门给 Element Plus 的 <el-upload> 组件使用
+ * 2. 用于维护上传列表、缩略图、删除按钮、预览状态等 UI 展示
+ * 3. 属于“组件内部展示数据”，不是最终业务提交数据
+ *
+ * 数据类型：
+ * - 始终为 UploadUserFile[]
+ *
+ * 外部是否必须传：
+ * - 不必须
+ * - 一般业务场景下，外部不需要关心这个字段
+ * - 只有在你想“手动控制上传列表展示 / 手动回显 el-upload 列表”时，才需要 v-model:file-data
+ *
+ * 建议：
+ * - 普通页面开发时，可以不传
+ * - 推荐主要使用 v-model:uploaded-files 作为业务数据源
+ */
 const fileData = defineModel<UploadUserFile[]>('fileData', {
   default: () => [],
 })
 
+/**
+ * 上传结果业务模型
+ *
+ * 作用：
+ * 1. 保存当前组件真正的上传结果数据
+ * 2. 外部页面应优先使用这个字段进行业务处理
+ * 3. 可用于表单提交、获取文件地址、监听上传进度、判断上传状态
+ *
+ * 数据类型：
+ * - 单文件模式（limit = 1 / avatar）时：UploadRow | null
+ * - 多文件模式时：UploadRow[] | null
+ *
+ * 里面通常包含：
+ * - 文件名 name
+ * - 文件大小 size / sizeBytes
+ * - 上传进度 progress
+ * - 上传状态 status
+ * - 后端返回结果 response
+ * - 文件地址 response.data.httpUrl
+ *
+ * 外部是否必须传：
+ * - 不必须
+ * - 但如果外部页面需要拿到上传结果，建议一定使用 v-model:uploaded-files
+ *
+ * 建议：
+ * - 业务开发时，优先使用这个字段
+ * - 一般不要把 fileData 当成最终业务数据源
+ */
 const uploadedFiles = defineModel<UploadedFilesModel<T>>('uploadedFiles', {
   default: () => null as UploadedFilesModel<T>,
 })
@@ -303,6 +352,15 @@ function getRows(): UploadRow[] {
     return [...val]
   }
 
+  /**
+   * 空对象视为“未初始化”
+   * 例如外部写了：
+   * const file = ref<UploadRow | null>({})
+   */
+  if (isEmptyPlainObject(val)) {
+    return []
+  }
+
   if (val && typeof val === 'object') {
     return [val]
   }
@@ -323,14 +381,34 @@ function ensureUploadedFilesMode(): void {
   const val = uploadedFiles.value
 
   if (isSingle.value) {
+    /**
+     * 单文件模式下：
+     * - 数组取第一个
+     * - 空对象转成 null
+     */
     if (Array.isArray(val)) {
       uploadedFiles.value = (val[0] ?? null) as UploadedFilesModel<T>
+      return
+    }
+
+    if (isEmptyPlainObject(val)) {
+      uploadedFiles.value = null as UploadedFilesModel<T>
     }
 
     return
   }
 
+  /**
+   * 多文件模式下：
+   * - 非数组统一转数组
+   * - 空对象转空数组
+   */
   if (!Array.isArray(val)) {
+    if (isEmptyPlainObject(val)) {
+      uploadedFiles.value = [] as UploadedFilesModel<T>
+      return
+    }
+
     if (val) {
       uploadedFiles.value = [val] as UploadedFilesModel<T>
       return
@@ -1237,6 +1315,14 @@ function abortUpload(target: UploadFile | UploadRow | string | number): void {
     status: 'fail',
     message: '已取消',
   })
+}
+
+function isEmptyPlainObject(value: unknown): boolean {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    return false
+  }
+
+  return Object.keys(value as Record<string, unknown>).length === 0
 }
 
 watch(dialogVisible, (val) => {
