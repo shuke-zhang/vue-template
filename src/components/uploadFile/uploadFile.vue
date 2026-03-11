@@ -113,6 +113,18 @@ const props = withDefaults(defineProps<{
    * 是否显示角标
    */
   isOccupyCorner?: boolean
+  /**
+   * 多文件上传时，是否保持用户选择文件时的顺序
+   *
+   * true：
+   * - uploadedFiles 按用户选择顺序输出
+   * - 即使接口返回顺序乱了，最终数组顺序仍保持 1、2、3
+   *
+   * false：
+   * - uploadedFiles 按上传结果进入数组的顺序输出
+   * - 谁先返回谁先排前面
+   */
+  preserveBatchSelectionOrder?: boolean
 }>(), {
   action: '/api/videoKC/video_upload2',
   mode: 'list',
@@ -132,6 +144,7 @@ const props = withDefaults(defineProps<{
   fileTypes: () => [],
   maxSizeMB: 0,
   isOccupyCorner: false,
+  preserveBatchSelectionOrder: true,
 })
 
 const emit = defineEmits<{
@@ -203,6 +216,8 @@ const uploadedFiles = defineModel<UploadedFilesModel<T>>('uploadedFiles', {
 
 const uploadRef = ref<UploadInstance | null>(null)
 const inFlight = new Map<string, AbortController>()
+const selectionOrderByUid = new Map<string, number>()
+const selectionOrderSeed = ref(0)
 const metaByUid = new Map<string, {
   name: string
   type: string
@@ -374,7 +389,9 @@ function setRows(rows: UploadRow[]): void {
     return
   }
 
-  uploadedFiles.value = rows as UploadedFilesModel<T>
+  const finalRows = sortRowsBySelectionOrder(rows)
+
+  uploadedFiles.value = finalRows as UploadedFilesModel<T>
 }
 
 function ensureUploadedFilesMode(): void {
@@ -851,7 +868,7 @@ function removeRow(uidStr: string): void {
   }
 
   metaByUid.delete(uidStr)
-
+  selectionOrderByUid.delete(uidStr)
   if (previewMap.value[uidStr]?.startsWith('blob:')) {
     URL.revokeObjectURL(previewMap.value[uidStr])
   }
@@ -936,6 +953,8 @@ function syncFileDataItem(
 function handleChange(uploadFile: UploadUserFile): void {
   const uid = String((uploadFile as any).uid)
   const status = (uploadFile as UploadUserFile & { status?: UploadStatus }).status
+
+  ensureSelectionOrder(uid)
 
   if (status === 'fail') {
     removeRow(uid)
@@ -1323,6 +1342,32 @@ function isEmptyPlainObject(value: unknown): boolean {
   }
 
   return Object.keys(value as Record<string, unknown>).length === 0
+}
+
+function ensureSelectionOrder(uid: string): void {
+  if (selectionOrderByUid.has(uid)) {
+    return
+  }
+
+  selectionOrderSeed.value += 1
+  selectionOrderByUid.set(uid, selectionOrderSeed.value)
+}
+
+function sortRowsBySelectionOrder(rows: UploadRow[]): UploadRow[] {
+  if (!props.preserveBatchSelectionOrder) {
+    return rows
+  }
+
+  if (isSingle.value) {
+    return rows
+  }
+
+  return [...rows].sort((a, b) => {
+    const orderA = selectionOrderByUid.get(String(a.uid)) ?? Number.MAX_SAFE_INTEGER
+    const orderB = selectionOrderByUid.get(String(b.uid)) ?? Number.MAX_SAFE_INTEGER
+
+    return orderA - orderB
+  })
 }
 
 watch(dialogVisible, (val) => {
