@@ -36,7 +36,15 @@ const router = createRouter({
         hidden: true,
       },
     },
-
+    {
+      path: '/editor',
+      name: 'Editor',
+      component: () => import('@/views/editor/index.vue'),
+      meta: {
+        title: '富文本',
+        hidden: true,
+      },
+    },
   ],
 })
 

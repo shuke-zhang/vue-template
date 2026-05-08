@@ -40,6 +40,10 @@ function handleGetSerialize() {
   })
 }
 
+function handleEditor() {
+  router.push('/editor')
+}
+
 function handleMsg() {
   showMessageError('提示')
 }
@@ -89,6 +93,10 @@ const page = ref(10)
 
       <el-button type="primary" :loading="loading" @click="handleGetSerialize">
         请求序列化
+      </el-button>
+
+      <el-button type="primary" :loading="loading" @click="handleEditor">
+        富文本
       </el-button>
 
       <icon-font name="close" color="#b3b3b7" />

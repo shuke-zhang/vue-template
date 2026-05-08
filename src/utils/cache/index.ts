@@ -1,6 +1,6 @@
-import { name, version } from '../../../package.json';
+import { name, version } from '../../../package.json'
 
-import { Cache } from './cache';
+import { Cache } from './cache'
 
 interface CacheType {
   /**
@@ -11,17 +11,17 @@ interface CacheType {
 /**
  * 缓存
  */
-const cache = new Cache<CacheType>(name, version);
+const cache = new Cache<CacheType>(name, version)
 
 /** */
 export function getCacheToken() {
-  return cache.get('TOKEN');
+  return cache.get('TOKEN')
 }
 
 export function setCacheToken(token: string) {
-  return cache.set('TOKEN', token, -1);
+  return cache.set('TOKEN', token, -1)
 }
 
 export function removeCacheToken() {
-  return cache.remove('TOKEN');
+  return cache.remove('TOKEN')
 }

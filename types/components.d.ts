@@ -30,6 +30,7 @@ declare module 'vue' {
     Pagination: typeof import('./../src/components/Pagination/Pagination.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ShukeButton: typeof import('./../src/components/ShukeButton/ShukeButton.vue')['default']
     UploadFile: typeof import('./../src/components/uploadFile/uploadFile.vue')['default']
     UploadFileV2: typeof import('./../src/components/uploadFile/UploadFileV2.vue')['default']
   }
